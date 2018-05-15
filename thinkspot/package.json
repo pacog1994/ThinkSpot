@@ -6,6 +6,9 @@
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-icons": "^2.2.7",
+    "react-router": "^3.0.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"
   },
   "scripts": {
@@ -13,13 +16,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }, 
+  },
   "repository": {
-    "type": "git", 
+    "type": "git",
     "url": "git+https://github.com/pacog1994/ThinkSpot.git"
   },
-  "author": "Paco Gallegos", 
-  "license": "ISC", 
+  "author": "Paco Gallegos",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/pacog1994/ThinkSpot/issues"
   },
