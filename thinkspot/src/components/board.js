@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Note from './note';
+import Note from './Note';
 import FaPlus from 'react-icons/lib/fa/plus';
 
 export default class Board extends Component { 

@@ -3,8 +3,10 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './components/app';
-import { Whoops404 } from './components/whoops404';
+import { Header } from './components/Header';
+import { App } from './components/App';
+import CreateSpotForm from'./components/CreateSpotForm';
+import { Whoops404 } from './components/Whoops404';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -13,12 +15,14 @@ window.React = React;
 //Main Router
 ReactDOM.render(
     //Router can only have one child
-    <Router>
+    <Router>      
         <div>
-            <Switch>
-                <Route exact path="/" component={App}/>
-                <Route path="/*" component={Whoops404}/>
-            </Switch>
+        <Header/>      
+        <Switch>
+            <Route exact path="/" component={App}/>
+            <Route path="/create" render={() => <CreateSpotForm/>}/>
+            <Route path="*/404" component={Whoops404}/>
+        </Switch> 
         </div>
     </Router>,
     document.getElementById('root')

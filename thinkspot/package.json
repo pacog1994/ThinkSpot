@@ -4,6 +4,8 @@
   "description": "A creative brainstorming website",
   "private": true,
   "dependencies": {
+    "material-ui": "^0.20.1",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-icons": "^2.2.7",
