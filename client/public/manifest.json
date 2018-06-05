@@ -1,5 +1,5 @@
 {
-  "short_name": "thinkspot",
+  "short_name": "client",
   "name": "Create React App",
   "start_url": "./client/public/index.html",
   "display": "standalone",

@@ -1,7 +1,8 @@
 import React from 'react'; 
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';   
 
-export const Header = () => {
+      
+export const Navigation = () => {
     return (
     <div>
         <NavLink to="/">Home</NavLink>
@@ -10,4 +11,5 @@ export const Header = () => {
         <NavLink to="Contact Us">Contact Us</NavLink>
     </div>
     )
-}
+}  
+     
