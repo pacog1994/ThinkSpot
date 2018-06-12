@@ -1,11 +1,11 @@
 import React, { Component } from 'react';   
-import { Users } from '../../models/Users';
 
 export default class Login extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            response: '',
+            response: [],
             loggedIn: false,
             first_name: null
         }
@@ -15,12 +15,12 @@ export default class Login extends Component {
 
     componentDidMount() {
         this.callApi()
-            .then(res => this.setState({response : JSON.stringify(res.Users[0].first_name)}))
-            .catch(err => console.log(err));
-    } 
+        .then(res => this.setState({ response: res.Users }))
+        .catch(err => console.log(err));
+    }
 
     callApi = async() => {
-        const response = await fetch('/*');
+        const response = await fetch("/*");
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
         return body;
@@ -28,11 +28,13 @@ export default class Login extends Component {
 
     logIn = (e) => {
         e.preventDefault();
-        const user = Users.find((user) => {
+        const user = this.state.response.find((user) => {
             return this.refs.username.value === user.username 
             && this.refs.password.value === user.password; 
         })     
-        return user ? this.setState({loggedIn: true, first_name: user.first_name}) 
+        return user ? this.setState({loggedIn: true, first_name: user.first_name}, () => {
+           console.log("worked");
+        })
         : console.log("Username or password is incorrect");  
     }
 
@@ -53,6 +55,7 @@ export default class Login extends Component {
                             ref="username"
                         />
                     </label>
+                    <br></br>
                     <label htmlFor="password">
                         Password:
                         <input type="text" 
@@ -61,7 +64,8 @@ export default class Login extends Component {
                             ref="password"
                         />
                     </label>
-                    <input type="submit" value="Log In"/>
+                    <br></br>
+                    <input type="submit" value="Sign In"/>
                 </form>
                 
                 :
@@ -71,12 +75,11 @@ export default class Login extends Component {
                     <button onClick={this.logOut}>Log Out</button>
                 </div>    
               }
-
-              <p>{this.state.response}</p>
             </div>
-
         )
     }
 
 }
+
+
      
