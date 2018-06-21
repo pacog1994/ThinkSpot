@@ -1,7 +1,7 @@
 import React from 'react'; 
-import { Navigation } from './Navigation';
-import { Route, Link } from 'react-router-dom';
-import Login from './Login';
+import { Route, Link } from 'react-router-dom'
+import { Navigation } from './Navigation'
+import Login from './Login'
 
 export const Header = () => {
     return (

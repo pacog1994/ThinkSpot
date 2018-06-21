@@ -1,7 +1,7 @@
 /**
  * Middleware to create store factory
  */
-import appReducer from './reducers'
+import appReducer from '../_reducers'
 import { createStore, applyMiddleware } from 'redux'
 
 const consoleMessages = store => next => action => {
@@ -26,6 +26,6 @@ const consoleMessages = store => next => action => {
     return result
 }
 
-export default (initialState={}) => {
+export const storeFactory = (initialState={}) => {
     return applyMiddleware(consoleMessages)(createStore)(appReducer, initialState)
 }
