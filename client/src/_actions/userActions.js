@@ -1,15 +1,15 @@
 import { userConstants } from '../_constants'
 
-export function login(username=null) {
+export function login(f_name, l_name, username) {
 
-    console.log(username) 
+    //Validation logic
 
     return {
         type: userConstants.LOGIN_USER,
         payload: {
-            "first_name": "Paco",
-            "last_name": "Gallegos", 
-            "username": "paco123"
+            "first_name": f_name,
+            "last_name": l_name, 
+            "username": username
         }
     }
 }

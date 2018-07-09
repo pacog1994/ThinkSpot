@@ -1,7 +1,12 @@
 import React, { Component } from 'react'   
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
 import { connect } from 'react-redux'
-import { login, logout } from '../_actions'
-import { bindActionCreators } from 'redux';
+import { login } from '../_actions'
+import { bindActionCreators } from 'redux'
+
 
 class Login extends Component {
 
@@ -9,10 +14,12 @@ class Login extends Component {
         super(props)
         this.state = {
             response: [],
-            first_name: this.props.user.first_name   
+            username: "",
+            password: "",
+            first_name: "" 
         }
         this.logIn = this.logIn.bind(this)
-        this.logOut = this.logOut.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
 
     componentDidMount() {
@@ -28,75 +35,74 @@ class Login extends Component {
         return body
     };
 
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value
+        })
+        
+    }
+
     logIn = (e) => {
         e.preventDefault()
-        // console.log(`
-        //     first name: ${this.props.user.first_name}
-        //     last name: ${this.props.user.last_name}
-        //     username: ${this.props.user.username}
-        // `)
+            
+        console.log(`
+                state:
+
+                username: ${this.state.username}
+                password: ${this.state.password}
+            `)
+
         const user = this.state.response.find((user) => {
-            return this.refs.username.value === user.username 
-            && this.refs.password.value === user.password
+            console.log(user.username + " " + user.password)
+            return this.state.username === user.username 
+            && this.state.password === user.password
         })     
 
         
         return user ? this.setState({first_name: user.first_name}, () => {
            console.log("logged in")
-           this.props.login(null)
+           this.props.login(user.first_name, null, user.username)
+           window.location = '/'
+
         })
         : console.log("Username or password is incorrect")
     }
 
-    logOut = (e) => {
-        e.preventDefault();
-        this.setState({first_name: null}, () => {
-            console.log("logged out")
-            this.props.logout()
-        })
-    }
     render() {
-        
-        const loggedIn = JSON.parse(localStorage.getItem('user'))
-        .user.username !== null
-
-        return (
-            <div>
-                { !loggedIn ? 
-                <form className="logIn" onSubmit={this.logIn}>
-                    <label htmlFor="username">
-                        Username: 
-                        <input type="text" 
-                            name="username"
+        return (   
+            <div style={{textAlign: "center"}}>
+                <Card>
+                <CardHeader
+                    title="Login"
+                    subtitle="test"
+                />
+                    <form className="logIn" onSubmit={this.logIn}>
+                        <TextField 
+                            label="Username"
+                            type="text"
+                            value={this.state.username}
+                            onChange={this.handleChange("username")}
                             required
-                            ref="username"
                         />
-                    </label>
-                    <br></br>
-                    <label htmlFor="password">
-                        Password:
-                        <input type="text" 
-                            name="password"
+                        <br></br>
+                        <TextField 
+                            label="Password"
+                            type="password" 
+                            value={this.state.password}
+                            onChange={this.handleChange("password")}
                             required
-                            ref="password"
                         />
-                    </label>
-                    <br></br>
-                    <input type="submit" value="Sign In"/>
-                </form>
-                
-                :
-                
-                <div>
-                    <h2> Welcome {this.state.first_name}</h2>
-                    <button onClick={this.logOut}>Log Out</button>
-                </div>    
-              }
+                        <br></br>
+                        <br></br> 
+                        <Button type="submit" variant="contained" size="small" color="primary">Sign In</Button>
+                    </form>
+                </Card>
             </div>
         )
     }
 
 }
+
 
 const mapStateToProps = (state) => {
     return {
@@ -107,8 +113,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        login: login,
-        logout: logout
+        login: login
     }, dispatch)
 }
 

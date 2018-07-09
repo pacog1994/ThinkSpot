@@ -7,7 +7,6 @@ import { App }  from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { storeFactory } from './_store'
 import { Provider } from 'react-redux'
-import { login } from './_actions'
 
 window.React = React;
 
