@@ -4,8 +4,9 @@ import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import { connect } from 'react-redux'
-import { login } from '../_actions'
 import { bindActionCreators } from 'redux'
+import { login } from '../_actions'
+
 
 
 class Login extends Component {
@@ -61,7 +62,7 @@ class Login extends Component {
         
         return user ? this.setState({first_name: user.first_name}, () => {
            console.log("logged in")
-           this.props.login(user.first_name, null, user.username)
+           this.props.login(user.first_name, user.last_name, user.username)
            window.location = '/'
 
         })
@@ -70,13 +71,13 @@ class Login extends Component {
 
     render() {
         return (   
-            <div style={{textAlign: "center"}}>
+            <div>
                 <Card>
                 <CardHeader
                     title="Login"
                     subtitle="test"
                 />
-                    <form className="logIn" onSubmit={this.logIn}>
+                    <form className="logIn" onSubmit={this.logIn} style={{padding: "20px"}}>
                         <TextField 
                             label="Username"
                             type="text"

@@ -23,20 +23,25 @@ class Header extends Component {
 
     render() {
         
-        const loggedIn = (localStorage.getItem('user') !== null 
-        && JSON.parse(localStorage.getItem('user'))
+        const loggedIn = (localStorage.getItem('redux-store') !== null 
+        && JSON.parse(localStorage.getItem('redux-store'))
         .user.username !== null)
         ? true
         : false
 
         return ( 
             <div>
-                <AppBar position="static">
+                <AppBar position="static" style={{ margin: 0 }}>
                     <Toolbar>
-                        <Typography variant="title" color="inherit" style={{ flex: 1 }}>
-                            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>ThinkSpot</Link>
+                        <Typography variant="title" color="inherit">
+                            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>Think Spot</Link>
                         </Typography>
                         <div>
+                            <Button color="inherit">
+                                <Link to="/spot" style={{ textDecoration: "none", color: "inherit" }}>My Spots</Link>
+                            </Button>
+                        </div>
+                        <div >
                             {!loggedIn
                                 ? <Button color="inherit"> 
                                     <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}>
@@ -44,7 +49,7 @@ class Header extends Component {
                                     </Link>
                                   </Button>
                                 : <div>
-                                    <span>{JSON.parse(localStorage.getItem('user')).user.first_name }</span>
+                                    <span>{JSON.parse(localStorage.getItem('redux-store')).user.first_name }</span>
                                     <Button onClick={this.logOut} color="inherit">Log Out</Button>
                                 </div>
                                 

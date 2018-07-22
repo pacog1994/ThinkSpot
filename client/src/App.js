@@ -7,7 +7,9 @@ import { PrivateRoute } from './_components'
 import Header from './Header/Header'
 import { Home } from './Home'
 import Login from './Header/Login'
-import CreateSpotForm from './CreateSpotForm'
+import Board from './Board'
+import SpotForm from './Spot/SpotForm'
+import MySpots from './Spot/MySpots'
 import { Whoops404 } from './Whoops404'
 
 export const App = () => {
@@ -17,9 +19,10 @@ export const App = () => {
             <div> 
              <Header/>
                 <Switch>   
-                    <Route exact path="/" component={Home}/>
+                    <Route exact strict path="/" component={Home}/>
                     <Route path="/login" component={Login}/>
-                    <PrivateRoute path="/create" component={CreateSpotForm}/>
+                    <PrivateRoute exact strict path="/spot" component={MySpots}/>
+                    <PrivateRoute exact strict path="/spot/add" component={SpotForm}/>
                     <Route path="*/404" component={Whoops404}/>
                 </Switch>
             </div>

@@ -10,16 +10,24 @@ const consoleMessages = store => next => action => {
 
     console.groupCollapsed(`dispatching action => ${action.type}`)
     
-    let { user, errors } = store.getState()
+    let { user, spot, errors } = store.getState()
 
+    if (user !== null && spot !== null && errors !== null) {
     console.log(`
 
-        first name: ${user.first_name}
-        last name: ${user.last_name}
-        username : ${user.username}
-        errors: ${errors.length}
+            first name: ${user.first_name}
+            last name: ${user.last_name}
+            username : ${user.username}
+            
+            User's Spots
+            1. ${spot.title}
+            ${spot.content}
+            
+            errors: ${errors.length}
 
-    `)
+        `)
+    }
+    else { console.log("setting up initial state of the store") } 
 
     console.groupEnd()
 

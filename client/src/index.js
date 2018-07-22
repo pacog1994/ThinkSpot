@@ -10,14 +10,14 @@ import { Provider } from 'react-redux'
 
 window.React = React;
 
-const initialState = (localStorage['user']) ?
-    JSON.parse(localStorage['user']) : {} 
+const initialState = (localStorage['redux-store']) ?
+    JSON.parse(localStorage['redux-store']) : {} 
 
 const store = storeFactory(initialState)
 
 const saveState = () => {
     const state = JSON.stringify(store.getState())
-    localStorage['user'] = state
+    localStorage['redux-store'] = state
 }
 
 store.subscribe(saveState)
