@@ -8,12 +8,29 @@ export default class Spot extends Component {
         super(props)
         this.state = {
             editing: false,
+            id: null,
             title: null,
             content: null,
             username: null
         }  
         this.edit = this.edit.bind(this)
         this.remove = this.remove.bind(this)
+    }
+
+    componentDidMount() {
+
+        const { match } = this.props
+        
+        match == null ? 
+        this.setState({
+            title: this.props.title,
+            content: this.props.content,
+            username: this.props.username
+        })
+        
+        : 
+        
+        console.log(JSON.stringify(match))
     }
   
     edit() {
@@ -28,17 +45,6 @@ export default class Spot extends Component {
 
 
     render() {
-
-        const spots = JSON.parse(localStorage.getItem('redux-store')).spot
-
-        spots.find((spot, i) => {
-            if(this.props.match.params.id === i) {
-                this.state.title = spot.title
-                this.state.content = spot.content
-                this.state.username = spot.username
-            }
-        })
-
         return (
             <div>
                 <div style={{float: "right"}}>
