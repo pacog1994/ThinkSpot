@@ -22,8 +22,9 @@ export const App = () => {
                     <Route exact strict path="/" component={Home}/>
                     <Route path="/login" component={Login}/>
                     <PrivateRoute exact strict path="/spot" component={MySpots}/>
-                    <Route exact path="/spot/:index" component={Spot}/>
-                    <PrivateRoute path="/spot/add" component={SpotForm}/>
+                    <PrivateRoute exact strict path="/spot/add" component={SpotForm}/>
+                    <Route path="/spot/:index" component={Spot}/>
+                    
                     <Route path="*/404" component={Whoops404}/>
                 </Switch>
             </div>
