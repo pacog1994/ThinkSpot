@@ -2,6 +2,7 @@
  * Middleware to create store factory
  */
 import appReducer from '../_reducers'
+import { userConstants } from '../_constants'
 import { createStore, applyMiddleware } from 'redux'
 
 const consoleMessages = store => next => action => {
@@ -34,6 +35,13 @@ const consoleMessages = store => next => action => {
     return result
 }
 
+const rootReducer = (state, action) => {
+    if( action.type === userConstants.LOGOUT_USER) {
+        state = undefined
+    }
+    return appReducer(state, action)
+}
+
 export const storeFactory = (initialState={}) => {
-    return applyMiddleware(consoleMessages)(createStore)(appReducer, initialState)
+    return applyMiddleware(consoleMessages)(createStore)(rootReducer, initialState)
 }
