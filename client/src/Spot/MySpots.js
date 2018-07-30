@@ -31,7 +31,7 @@ export default class MySpots extends Component {
             {
                 spots.map((spot, i) => {
                     return (
-                        <Link to={"spot/" + i}>
+                        <Link key={i} to={"spot/" + i}>
                             <Card style={{padding: "5px", margin: "5px"}}>
                                 <Spot
                                     key={i}

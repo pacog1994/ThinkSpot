@@ -18,19 +18,27 @@ export default class Spot extends Component {
     }
 
     componentDidMount() {
-
         const { match } = this.props
-        
-        match == null ? 
-        this.setState({
-            title: this.props.title,
-            content: this.props.content,
-            username: this.props.username
-        })
-        
-        : 
-        
-        console.log(JSON.stringify(match))
+
+        if(!match) { 
+            this.setState({
+                title: this.props.title,
+                content: this.props.content,
+                username: this.props.username
+            }) 
+        } else {
+            const spots = JSON.parse(localStorage.getItem('redux-store')).spot
+            spots.find((spot, i) => {
+               if(match.params.id == i) {
+                    this.setState({
+                        title: spot.title,
+                        content: spot.content,
+                        username: spot.username
+                    })
+               }
+            })
+
+        }
     }
   
     edit() {
