@@ -53,12 +53,17 @@ export default class Spot extends Component {
 
 
     render() {
+        const { match } = this.props
         return (
             <div>
-                <div style={{float: "right"}}>
-                    <button onClick={() => this.edit()}><FaPencil/>Edit</button>
-                    <button onClick={() => this.remove()}><FaTrash/>Remove</button> 
-                </div>
+                
+                { match 
+                    ? <div style={{float: "right"}}>
+                        <button onClick={() => this.edit()}><FaPencil/>Edit</button>
+                        <button onClick={() => this.remove()}><FaTrash/>Remove</button> 
+                    </div>
+                    : null 
+                }
 
                 <h3>{this.state.title}</h3>
                 <p>{this.state.content}</p>

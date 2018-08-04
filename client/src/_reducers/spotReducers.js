@@ -8,6 +8,12 @@ export const spot = (state=[], action) => {
                 action.payload
             ]
         
+        case spotConstants.EDIT:
+            return [
+                ...state,
+                action.payload
+            ]
+            
         case spotConstants.REMOVE:
             return []
         
