@@ -7,7 +7,11 @@ export default class MySpots extends Component {
     
     constructor(props) {
         super(props)
+        this.state = {
+            spots: []
+        }
     }
+
    /**
     * removes the selected spot
     * @param {the index of the spot} id 
@@ -17,27 +21,25 @@ export default class MySpots extends Component {
     } 
     
     render() {
-        const spots = JSON.parse(localStorage.getItem('redux-store')).spot
-        spots.map((spot, i) => {
+        this.state.spots = JSON.parse(localStorage.getItem('redux-store')).spot
+        this.state.spots.map((spot, i) => {
             console.log(`
                 key = ${i}
                 title = ${spot.title}
-                content = ${spot.content}
-                username = ${spot.username}
+                description = ${spot.description}
+                username = ${spot.author}
             `)
         })
         return (
             <div style={{padding: '10px'}}>
             {
-                spots.map((spot, i) => {
+                this.state.spots.map((spot, i) => {
                     return (
                         <Link key={i} to={"spot/" + i}>
                             <Card style={{padding: "5px", margin: "5px"}}>
                                 <Spot
                                     key={i}
-                                    title={spot.title}
-                                    content={spot.content}
-                                    username={spot.username}
+                                    spot={spot}
                                 />
                             </Card>
                         </Link>

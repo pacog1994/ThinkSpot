@@ -1,35 +1,37 @@
 import { spotConstants } from '../_constants'
 
-export function addSpot(author, title, content) {
+export function addSpot(uid, author, title, description) {
     
     //Validation logic
 
     return {
         type: spotConstants.ADD,
         payload: {
+            "id": uid,
             "author": author,
             "title": title,
-            "content": content
+            "description": description
         }
     }
 }
 
-export function editSpot(author, title, content) {
+export function editSpot(spot) {
 
     //Validation logic
     return {
         type: spotConstants.EDIT,
         payload: {
-            "author": author,
-            "title": title,
-            "content": content
+            "spot": spot 
         }
     }
 }
 
-export function removeSpot() {
+export function removeSpot(uid) {
 
     return {
-        type: spotConstants.REMOVE
+        type: spotConstants.REMOVE,
+        payload: {
+            "id": uid
+        }
     }
 }

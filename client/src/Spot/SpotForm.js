@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import FaFloppy0 from 'react-icons/lib/fa/floppy-o';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
+import FaFloppy0 from 'react-icons/lib/fa/floppy-o';
 import { addSpot } from '../_actions'
 
 /**
@@ -14,9 +14,6 @@ class SpotForm extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            author: null,
-            title: null,
-            content: null,
             submitted: false
         }   
         this.submit = this.submit.bind(this);
@@ -25,12 +22,13 @@ class SpotForm extends Component {
    submit = (e) => {
         e.preventDefault();
         if (this.refs.title.value != null && 
-            this.refs.body.value != null) {
+            this.refs.desc.value != null) {
             const user = JSON.parse(localStorage.getItem('redux-store')).user
-            console.log(user.username)
-            this.props.addSpot(user.username, 
+            const uid = Object.keys(JSON.parse(localStorage.getItem('redux-store')).spot).length  
+            this.props.addSpot(uid,
+                            user.username, 
                             this.refs.title.value,
-                            this.refs.body.value)
+                            this.refs.desc.value)
             this.setState({submitted: true})  
         }
     }
@@ -43,18 +41,19 @@ class SpotForm extends Component {
                 <form className="addSpotForm" onSubmit={this.submit}>
                     <label htmlFor="title">Title</label>
                     <br></br>
-                    <input type="text"
-                           required
-                           ref="title"
+                    <input id="title" 
+                        type="text"
+                        required
+                        ref="title"
                     />
                     <br></br>
-                    <label htmlFor="content">Body</label>
+                    <label htmlFor="prompt">Description</label>
                     <br></br>
                     <textarea id="prompt" 
                         type="text" 
                         defaultValue={prompt}
                         required
-                        ref="body"
+                        ref="desc"
                     />
                     <br></br>
                     <button><FaFloppy0/>Create Spot</button>
@@ -81,5 +80,6 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(SpotForm)
 
 SpotForm.propTypes = {
+    title: PropTypes.string,
     prompt: PropTypes.string,
 }

@@ -7,8 +7,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { login } from '../_actions'
 
-
-
 class Login extends Component {
 
     constructor(props) {

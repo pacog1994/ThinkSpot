@@ -10,12 +10,12 @@ export const spot = (state=[], action) => {
         
         case spotConstants.EDIT:
             return [
-                ...state,
-                action.payload
+                ...state.filter(spot => spot.id !== action.payload.spot.id),
+                Object.assign({}, action.payload.spot)
             ]
-            
+
         case spotConstants.REMOVE:
-            return []
+            return [...state.filter(spot => spot.id !== action.payload.id)]
         
         default:
             return state;
