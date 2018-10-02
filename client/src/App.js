@@ -2,7 +2,7 @@
  * Root of the application
  */
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { HashRouter as Router, Route, Switch} from 'react-router-dom'
 import { PrivateRoute } from './_components'
 import Header from './Header/Header'
 import { Home } from './Home'
@@ -12,12 +12,17 @@ import SpotForm from './Spot/SpotForm'
 import MySpots from './Spot/MySpots'
 import { Whoops404 } from './Whoops404'
 
+
+const styles = {
+    height: 500
+}
+
 export const App = () => {
     return (
-        //Main Router
+         //Main Router
         <Router>      
             <div> 
-             <Header/>
+            <Header/>
                 <Switch>   
                     <Route exact strict path="/" component={Home}/>
                     <Route path="/login" component={Login}/>
@@ -28,5 +33,6 @@ export const App = () => {
                 </Switch>
             </div>
         </Router>
+
     )
 }

@@ -19,6 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "aws s3 sync build/ s3://thinkspot.com",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -31,6 +32,5 @@
   "bugs": {
     "url": "https://github.com/pacog1994/ThinkSpot/issues"
   },
-  "homepage": "https://github.com/pacog1994/ThinkSpot#readme",
   "devDependencies": {}
 }

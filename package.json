@@ -15,6 +15,7 @@
   "author": "Paco Gallegos <pacog1994@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.313.0",
     "express": "^4.16.3"
   },
   "devDependencies": {

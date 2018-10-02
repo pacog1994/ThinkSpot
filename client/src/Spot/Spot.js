@@ -55,7 +55,6 @@ class Spot extends Component {
     
     componentWillReceiveProps(nextProps) {
         console.log("recieved props for updating") 
-       this.setState({spot: nextProps.spot})
     }
 
     /**
@@ -83,7 +82,8 @@ class Spot extends Component {
         }
         this.props.editSpot(spot)
         this.setState({
-            editing: false
+            editing: false,
+            spot: spot
         })
     }
 
@@ -98,7 +98,7 @@ class Spot extends Component {
                 <br></br>
                 <input id="title"
                     type="text"
-                    defaultValue={this.state.title}
+                    defaultValue={this.state.spot.title}
                     ref={input => this.newTitle = input}
                 />
                 <br></br>
@@ -106,7 +106,7 @@ class Spot extends Component {
                 <br></br>
                 <textarea id="prompt" 
                     type="text" 
-                    defaultValue={this.state.description}
+                    defaultValue={this.state.spot.description}
                     ref={input => this.newDesc = input}
                 />
                 <br></br>

@@ -36,11 +36,6 @@ class Header extends Component {
                         <Typography variant="title" color="inherit">
                             <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>Think Spot</Link>
                         </Typography>
-                        <div>
-                            <Button color="inherit">
-                                <Link to="/spot" style={{ textDecoration: "none", color: "inherit" }}>My Spots</Link>
-                            </Button>
-                        </div>
                         <div >
                             {!loggedIn
                                 ? <Button color="inherit"> 
@@ -48,7 +43,11 @@ class Header extends Component {
                                         Log In
                                     </Link>
                                   </Button>
-                                : <div>
+                                : 
+                                <div>
+                                    <Button color="inherit">
+                                        <Link to="/spot" style={{ textDecoration: "none", color: "inherit" }}>My Spots</Link>
+                                    </Button>
                                     <span>{JSON.parse(localStorage.getItem('redux-store')).user.first_name }</span>
                                     <Button onClick={this.logOut} color="inherit">Log Out</Button>
                                 </div>
