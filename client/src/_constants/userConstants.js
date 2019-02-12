@@ -2,5 +2,6 @@ export const userConstants = {
     LOGIN_REQUEST: "LOGIN_REQUEST",
     LOGIN_USER: "LOGIN_USER",
     LOGOUT_USER: "LOGOUT_USER",
+    FETCH_USER_SPOTS: "FETCH_USER_SPOTS"
 }
 

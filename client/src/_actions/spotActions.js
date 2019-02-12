@@ -35,3 +35,12 @@ export function removeSpot(uid) {
         }
     }
 }
+
+export const getSpot = username => dispatch => {
+    fetch("http://localhost:3100/spots?author="+username)
+    .then(res => res.json())
+    .then(spots => dispatch({
+        type: spotConstants.GET,
+        payload: spots
+    }))
+}

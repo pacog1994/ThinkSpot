@@ -6,11 +6,11 @@ const spots =  require('../models/Spots');
  */
 spotRoutes.get('/', (req, res) => {
     
-   const filteredSpots = spots.Spots.filter(function(spot) {
+   const filteredSpots = spots.filter(spot => {
         return spot.author === req.query.author
     });
 
-    const response = filteredSpots.length > 0 ? filteredSpots : spots;
+    const response = filteredSpots.length > 0 ? filteredSpots : [];
 
     res.status(200).send(response);
 });
@@ -19,29 +19,9 @@ spotRoutes.get('/', (req, res) => {
  * get specific spot based off index parameter
  */
 spotRoutes.get("/:id", (req, res) => {
-    res.status(200).send(spots.Spots.filter(function(spot) {
+    res.status(200).send(spots.filter(spot => {
         return spot.id === parseInt(req.params.id);
     }));
 }); 
-
-/**
- * get spots based off author query
- */
-spotRoutes.get("/", (req, res) => {
-    console.log(req.query);
-    
-}); 
-
-// /**
-//  * get specific spot based off author query and index parameter
-//  */
-// spotRoutes.get("?author=author/:id", (req, res) => {
-    
-//     const spotsByAuthor = spot.Spots.filter(function(spot) {
-//         return spot.author === req.query.author;
-//     })
-
-//     res.status(200).send(spotsByAuthor[req.params.id]);
-// }); 
 
 module.exports = spotRoutes;

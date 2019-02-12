@@ -2,13 +2,16 @@
  * Mock Express Server entry point used for testing React client-side application
  */
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3101;
-//Load Routes
-const routes = require('./server/routes/');
-//Load JSON Model
-const users = require('./server/models/Users');
 
+const port = process.env.PORT || 3100;
+//Load Routes
+const routes = require('./routes');
+//Load JSON Model
+const users = require('./models/Users');
+
+app.use(cors());
 app.use('/', routes);
 
 app.get('/*', (req, res) => {

@@ -1,6 +1,12 @@
 import { userConstants } from '../_constants'
 
-export const user = (state=null, action) => {
+const initialState = { 
+    first_name: null,
+    last_name: null,
+    username: null,
+}
+
+export const user = (state=initialState, action) => {
     switch(action.type) {
         case userConstants.LOGIN_USER:
             return action.payload
@@ -9,10 +15,10 @@ export const user = (state=null, action) => {
             return {
                 "first_name": null,
                 "last_name": null,
-                "username": null
+                "username": null,
             }
-       
-        default:
-            return state;
+
+         default:
+             return state;
     }
 }

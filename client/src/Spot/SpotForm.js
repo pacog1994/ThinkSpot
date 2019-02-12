@@ -59,7 +59,7 @@ class SpotForm extends Component {
                     <button><FaFloppy0/>Create Spot</button>
                 </form>
                 
-                {this.state.submitted ? <Redirect to="/spot"/> : null} 
+                {this.state.submitted ? <Redirect to="/spots"/> : null} 
             </div>
          )
         

@@ -12,7 +12,7 @@ userRoutes.get('/', (req, res) => {
  * get a specific user based off the parameter
  */
 userRoutes.get("/username?:username", (req, res) => {
-    res.status(200).send(users.Users.filter(function(user) {
+    res.status(200).send(users.filter(user => {
         return user.username === req.params.username;
     }));
 }); 

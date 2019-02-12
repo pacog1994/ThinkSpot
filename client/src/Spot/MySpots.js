@@ -1,35 +1,19 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import Card from '@material-ui/core/Card'
+import PropTypes from 'prop-types'
+
+import { connect } from 'react-redux'
+
+import { Link, withRouter } from 'react-router-dom'
+
 import Spot from './Spot'
 
-export default class MySpots extends Component {
-    
+import Card from '@material-ui/core/Card'
+
+
+class MySpots extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            user: null,
-            response: [],
-            spots: []
-        }
         this.update = this.update.bind(this);
-
-    }
-
-    componentDidMount() {
-        
-        this.setState({ user: JSON.parse(localStorage.getItem('redux-store'))
-        .user.username})
-        this.callApi()
-        .then(res => this.setState({ response: res.Spots}))
-        .catch(err => console.log(err))
-    }
-
-    callApi = async() => {
-        const response = await fetch("/spots/")
-        const body = await response.json()
-        if (response.status !== 200) throw Error(body.message)
-        return body
     }
 
     /**
@@ -47,32 +31,46 @@ export default class MySpots extends Component {
     * removes the selected spot
     * @param {the index of the spot} id 
     */
-    remove(id) {
-        
-    } 
+    remove(id) {} 
 
-    render() {
-        
-        this.state.spots = JSON.parse(localStorage.getItem('redux-store')).spot != 0 ? JSON.parse(localStorage.getItem('redux-store')).spot : this.state.response 
-        
+    render() {             
+        const spots = this.props.spots
         return (
             <div style={{padding: '10px'}}>
-            {
-                this.state.spots.map((spot, i) => {
-                    return (
-                        <Link key={i} to={"spot/" + i}>
-                            <Card style={{padding: "5px", margin: "5px"}}>
-                                <Spot
-                                    key={i}
-                                    onChange={this.update}
-                                    spot={spot}
-                                />
-                            </Card>
-                        </Link>
-                    )
-                })
-            }
+                { spots.length !== 0 ? 
+                    spots.map((spot, i) => {
+                        return (
+                            <Link key={i} to={"spots/" + i}>
+                                <Card style={{padding: "5px", margin: "5px"}}>
+                                    <Spot
+                                        key={i}
+                                        onChange={this.update}
+                                        //state
+                                        id={spot.id}
+                                        author={spot.author}
+                                        title={spot.title}
+                                        description={spot.description}
+                                    />
+                                </Card>
+                            </Link>
+                        )
+                    })
+                :
+                    this.props.history.push('/')
+                }
             </div>
         )
     }
 }
+
+MySpots.propTypes = {
+ spots: PropTypes.array.isRequired   
+}
+
+const mapStateToProps = (state) => {
+    return {
+        spots: state.spots
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(MySpots))

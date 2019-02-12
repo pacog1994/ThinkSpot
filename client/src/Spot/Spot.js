@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import { withRouter } from 'react-router-dom'
+
+import { editSpot, removeSpot } from '../_actions'
+
 import FaPencil from 'react-icons/lib/fa/pencil'; 
 import FaTrash from 'react-icons/lib/fa/trash';
 import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
-import { editSpot, removeSpot } from '../_actions'
+
 
 
 class Spot extends Component {
@@ -14,12 +20,10 @@ class Spot extends Component {
         super(props)
         this.state = {
             editing: false,
-            spot: {
-                id: null,
-                author: null,
-                title: null,
-                description: null
-            }
+            id: null,
+            author: null,
+            title: null,
+            description: null
         }  
         this.edit = this.edit.bind(this)
         this.remove = this.remove.bind(this)
@@ -34,29 +38,30 @@ class Spot extends Component {
      */
 
     componentDidMount() {
-        if(!this.props.match) {
-            //get spots from parent's props 
+        if(this.props.match.params.id == null) {
+            //get from parent
             this.setState({
-                spot: this.props.spot
-            }) 
+                id: this.props.id,
+                author: this.props.author,
+                title: this.props.title,
+                description: this.props.description
+            })
         } else {
-            //get spots from store
-            const spots = JSON.parse(localStorage.getItem('redux-store')).spot
-            spots.find((spot, i) => {
-               if(this.props.match.params.id == i) {
-                    this.setState({
-                        spot: spot
-                    })
-               }
+            //get from store
+            const spot = this.props.spots.find(spot => {
+                return this.props.match.params.id === spot.id.toString()
+            })
+
+            this.setState({ 
+                id: spot.id,
+                author: spot.author,
+                title: spot.author,
+                description: spot.description
             })
 
         }
     }
     
-    componentWillReceiveProps(nextProps) {
-        console.log("recieved props for updating") 
-    }
-
     /**
      * CRUD Methods 
      */
@@ -68,22 +73,23 @@ class Spot extends Component {
     }
 
     remove() {
-        this.props.removeSpot(this.state.spot.id)
-        window.location = '/spot'
+        this.props.removeSpot(this.state.id)
+        window.location = '/spots'
 
     }
 
     save() {
         let spot = { 
-            id: this.state.spot.id,
-            author: this.state.spot.author,
+            id: this.state.id,
+            author: this.state.author,
             title: this.newTitle.value,
             description: this.newDesc.value
         }
         this.props.editSpot(spot)
         this.setState({
             editing: false,
-            spot: spot
+            title: this.newTitle.value,
+            description: this.newDesc.value
         })
     }
 
@@ -98,7 +104,7 @@ class Spot extends Component {
                 <br></br>
                 <input id="title"
                     type="text"
-                    defaultValue={this.state.spot.title}
+                    defaultValue={this.state.title}
                     ref={input => this.newTitle = input}
                 />
                 <br></br>
@@ -106,7 +112,7 @@ class Spot extends Component {
                 <br></br>
                 <textarea id="prompt" 
                     type="text" 
-                    defaultValue={this.state.spot.description}
+                    defaultValue={this.state.description}
                     ref={input => this.newDesc = input}
                 />
                 <br></br>
@@ -118,9 +124,9 @@ class Spot extends Component {
     renderDisplay() {
         return (
             <div>
-                <h3>{this.state.spot.title}</h3>
-                <p>{this.state.spot.description}</p>
-                <span>{this.state.spot.author}</span>
+                <h3>{this.state.title}</h3>
+                <p>{this.state.description}</p>
+                <span>{this.state.author}</span>
             </div>
         )
     }
@@ -147,6 +153,19 @@ class Spot extends Component {
     }   
 }
 
+Spot.propTypes = {
+    title: PropTypes.string,
+    prompt: PropTypes.string,
+    editSpot: PropTypes.func.isRequired,
+    removeSpot: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => {
+    return {
+        spots: state.spots
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         editSpot: editSpot,
@@ -154,10 +173,7 @@ const mapDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(Spot)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Spot))
 
-Spot.propTypes = {
-    title: PropTypes.string,
-    prompt: PropTypes.string
-}
+
 

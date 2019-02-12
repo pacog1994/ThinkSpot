@@ -16,7 +16,10 @@ export const spot = (state=[], action) => {
 
         case spotConstants.REMOVE:
             return [...state.filter(spot => spot.id !== action.payload.id)]
-        
+     9
+        case spotConstants.GET:
+           return action.payload
+
         default:
             return state;
     }

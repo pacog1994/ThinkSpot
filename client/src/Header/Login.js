@@ -1,70 +1,49 @@
-import React, { Component } from 'react'   
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
+import { withRouter } from 'react-router-dom'
+
+import { login, getSpot } from '../_actions'
+
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { login } from '../_actions'
 
 class Login extends Component {
-
     constructor(props) {
         super(props)
         this.state = {
-            response: [],
             username: "",
             password: "",
             first_name: "" 
         }
         this.logIn = this.logIn.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        this.onChange = this.onChange.bind(this)
     }
 
-    componentDidMount() {
-        this.callApi()
-        .then(res => this.setState({ response: res.Users }))
-        .catch(err => console.log(err))
-    }
-
-    callApi = async() => {
-        const response = await fetch("/*")
-        const body = await response.json()
-        if (response.status !== 200) throw Error(body.message)
-        return body
-    };
-
-    handleChange = name => event => {
+    onChange = name => e => {
         this.setState({
-            [name]: event.target.value
+            [name]: e.target.value
         })
-        
     }
 
     logIn = (e) => {
-        e.preventDefault()
-            
-        console.log(`
-                state:
+        e.preventDefault()    
 
-                username: ${this.state.username}
-                password: ${this.state.password}
-            `)
-
-        const user = this.state.response.find((user) => {
-            console.log(user.username + " " + user.password)
+        const user = this.props.users.find((user) => {
             return this.state.username === user.username 
             && this.state.password === user.password
-        })     
+        })    
 
-        
         return user ? this.setState({first_name: user.first_name}, () => {
-           console.log("logged in")
            this.props.login(user.first_name, user.last_name, user.username)
-           window.location = '/'
-
-        })
-        : console.log("Username or password is incorrect")
+           this.props.getSpot(user.username)
+           this.props.history.push('/')
+        }) : console.log("Username or password is incorrect")
     }
 
     render() {
@@ -80,7 +59,7 @@ class Login extends Component {
                             label="Username"
                             type="text"
                             value={this.state.username}
-                            onChange={this.handleChange("username")}
+                            onChange={this.onChange("username")}
                             required
                         />
                         <br></br>
@@ -88,7 +67,7 @@ class Login extends Component {
                             label="Password"
                             type="password" 
                             value={this.state.password}
-                            onChange={this.handleChange("password")}
+                            onChange={this.onChange("password")}
                             required
                         />
                         <br></br>
@@ -99,21 +78,27 @@ class Login extends Component {
             </div>
         )
     }
-
 }
 
+Login.propTypes = { 
+    login: PropTypes.func.isRequired,
+    getSpot: PropTypes.func.isRequired,
+    users: PropTypes.array.isRequired,
+    errors: PropTypes.array.isRequired
+}
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user,
+        users: state.db.users,
         errors: state.errors
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        login: login
+        login: login,
+        getSpot: getSpot
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

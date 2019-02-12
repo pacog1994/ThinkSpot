@@ -4,7 +4,7 @@
   "description": "A creative website for brainstorming ideas",
   "scripts": {
     "client": "cd client && npm start",
-    "server": "nodemon server.js",
+    "server": "cd server && nodemon server.js",
     "dev": "start npm run client && start npm run server"
   },
   "repository": "git@github.com:pacog1994/ThinkSpot.git",
@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.313.0",
+    "cors": "^2.8.5",
     "express": "^4.16.3"
   },
   "devDependencies": {
