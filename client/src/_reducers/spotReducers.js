@@ -8,9 +8,18 @@ export const spot = (state=[], action) => {
                 action.payload
             ]
         
+        case spotConstants.EDIT:
+            return [
+                ...state.filter(spot => spot.id !== action.payload.spot.id),
+                Object.assign({}, action.payload.spot)
+            ]
+
         case spotConstants.REMOVE:
-            return []
-        
+            return [...state.filter(spot => spot.id !== action.payload.id)]
+     9
+        case spotConstants.GET:
+           return action.payload
+
         default:
             return state;
     }

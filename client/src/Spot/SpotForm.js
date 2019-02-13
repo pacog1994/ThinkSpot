@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import FaFloppy0 from 'react-icons/lib/fa/floppy-o';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import { withRouter } from 'react-router-dom';
+
 import { addSpot } from '../_actions'
+
+import FaFloppy0 from 'react-icons/lib/fa/floppy-o';
+
 
 /**
  * Form component for creating a spot
@@ -13,25 +18,20 @@ class SpotForm extends Component {
     
     constructor (props) {
         super(props);
-        this.state = {
-            author: null,
-            title: null,
-            content: null,
-            submitted: false
-        }   
         this.submit = this.submit.bind(this);
     }
 
    submit = (e) => {
         e.preventDefault();
         if (this.refs.title.value != null && 
-            this.refs.body.value != null) {
-            const user = JSON.parse(localStorage.getItem('redux-store')).user
-            console.log(user.username)
-            this.props.addSpot(user.username, 
+            this.refs.desc.value != null) {
+            const user = this.props.user
+            const uid = this.props.spots.length  
+            this.props.addSpot(uid,
+                            user.username, 
                             this.refs.title.value,
-                            this.refs.body.value)
-            this.setState({submitted: true})  
+                            this.refs.desc.value)
+           this.props.history.push('/spots') 
         }
     }
 
@@ -43,33 +43,41 @@ class SpotForm extends Component {
                 <form className="addSpotForm" onSubmit={this.submit}>
                     <label htmlFor="title">Title</label>
                     <br></br>
-                    <input type="text"
-                           required
-                           ref="title"
+                    <input id="title" 
+                        type="text"
+                        required
+                        ref="title"
                     />
                     <br></br>
-                    <label htmlFor="content">Body</label>
+                    <label htmlFor="prompt">Description</label>
                     <br></br>
                     <textarea id="prompt" 
                         type="text" 
                         defaultValue={prompt}
                         required
-                        ref="body"
+                        ref="desc"
                     />
                     <br></br>
                     <button><FaFloppy0/>Create Spot</button>
                 </form>
-                
-                {this.state.submitted ? <Redirect to="/spot"/> : null} 
             </div>
          )
         
     }
 }
 
+SpotForm.propTypes = {
+    title: PropTypes.string,
+    prompt: PropTypes.string,
+    user: PropTypes.object.isRequired,
+    spots: PropTypes.array.isRequired,
+    addSpot: PropTypes.func.isRequired
+}
+
 const mapStateToProps = (state) => {
     return {
-        spot: state.spot
+        user: state.user,
+        spots: state.spots
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -78,8 +86,4 @@ const mapDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SpotForm)
-
-SpotForm.propTypes = {
-    prompt: PropTypes.string,
-}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SpotForm))

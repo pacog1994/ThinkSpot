@@ -1,9 +1,9 @@
 import { userConstants } from '../_constants'
 
-export function login(f_name, l_name, username) {
+export function login (f_name, l_name, username) {
 
     //Validation logic
-
+    
     return {
         type: userConstants.LOGIN_USER,
         payload: {
@@ -18,14 +18,13 @@ export function login(f_name, l_name, username) {
  * TODO: Add Logic for checking if user is logged in. 
  */
 export function logout() {
-
     //Add Logic
-
     return {
-        type: userConstants.LOGOUT_USER
+        type: userConstants.LOGOUT_USER,
+        payload: {
+            "first_name": null,
+            "last_name": null,
+            "username": null
+        }
     }
 }
-
-
-//add error
-//clear error
