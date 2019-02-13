@@ -12,10 +12,10 @@ import { db } from './dbReducers'
  * errors - current error being displayed
  */
 const rootReducer = combineReducers({
-    db,
-    user,
+    db: db,
+    user: user,
     spots: spot,
-    errors
+    errors: errors
 })
 
 export default rootReducer

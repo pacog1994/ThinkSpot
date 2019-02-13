@@ -10,7 +10,7 @@ spotRoutes.get('/', (req, res) => {
         return spot.author === req.query.author
     });
 
-    const response = filteredSpots.length > 0 ? filteredSpots : [];
+    const response = filteredSpots.length > 0 ? filteredSpots : spots;
 
     res.status(200).send(response);
 });

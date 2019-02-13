@@ -5,8 +5,9 @@ import React, { Component }from 'react'
 import { HashRouter as Router, Route, Switch} from 'react-router-dom'
 import { PrivateRoute } from './_components'
 import Header from './Header/Header'
-import { Home } from './Home'
+import Home from './Home'
 import Login from './Header/Login'
+import Logout from './Header/Logout'
 import Spot from './Spot/Spot'
 import SpotForm from './Spot/SpotForm'
 import MySpots from './Spot/MySpots'
@@ -34,6 +35,7 @@ class App extends Component {
                     <Switch>   
                         <Route exact strict path="/" component={Home}/>
                         <Route path="/login" component={Login}/>
+                        <Route path="/logout" component={Logout}/>
                         <PrivateRoute exact strict path="/spots" component={MySpots}/>
                         <PrivateRoute exact strict path="/spot/add" component={SpotForm}/>
                         <Route path="/spots/:id" component={Spot} />

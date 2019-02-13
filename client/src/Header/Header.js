@@ -4,9 +4,6 @@ import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-
-import { logout } from '../_actions'
 
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -20,10 +17,8 @@ class Header extends Component {
     }
     
     logOut = (e) => {
-        e.preventDefault();
-        this.props.logout()
-        window.location = '/'
-        //this.props.history.push('/')
+        e.preventDefault()
+        this.props.history.push('/logout')
     }  
 
     render() {
@@ -75,7 +70,6 @@ class Header extends Component {
 }
 
 Header.propTypes = { 
-    logout: PropTypes.func.isRequired,
     user: PropTypes.object
 }
 
@@ -85,10 +79,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        logout: logout
-    }, dispatch)
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))
+export default withRouter(connect(mapStateToProps)(Header))

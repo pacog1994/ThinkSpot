@@ -8,11 +8,12 @@ import { withRouter } from 'react-router-dom'
 
 import { editSpot, removeSpot } from '../_actions'
 
+import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card'
 import FaPencil from 'react-icons/lib/fa/pencil'; 
 import FaTrash from 'react-icons/lib/fa/trash';
 import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
-
-
 
 class Spot extends Component {
     
@@ -38,6 +39,7 @@ class Spot extends Component {
      */
 
     componentDidMount() {
+        console.log("Component mounted & rendering spot")
         if(this.props.match.params.id == null) {
             //get from parent
             this.setState({
@@ -55,7 +57,7 @@ class Spot extends Component {
             this.setState({ 
                 id: spot.id,
                 author: spot.author,
-                title: spot.author,
+                title: spot.title,
                 description: spot.description
             })
 
@@ -74,8 +76,7 @@ class Spot extends Component {
 
     remove() {
         this.props.removeSpot(this.state.id)
-        window.location = '/spots'
-
+        this.props.history.replace('/spots')
     }
 
     save() {
@@ -124,9 +125,15 @@ class Spot extends Component {
     renderDisplay() {
         return (
             <div>
-                <h3>{this.state.title}</h3>
-                <p>{this.state.description}</p>
-                <span>{this.state.author}</span>
+                <Typography component="h2" variant="h1" gutterBottom>
+                    {this.state.title}
+                </Typography>
+                <Typography component="body2" variant="body1">
+                    {this.state.description}
+                </Typography>
+                <Typography component="subtitle1" variant="subtitle1">
+                    <span>{this.state.author}</span>
+                </Typography>
             </div>
         )
     }
@@ -146,8 +153,10 @@ class Spot extends Component {
     render() {
         return (
             <div>
-                { this.props.match && !this.state.editing ? this.renderOptions() : null }
-                { !this.state.editing ?  this.renderDisplay() : this.renderForm() }
+                 <Card className={this.props.classes.root}>
+                    {  this.props.match.params.id && !this.state.editing ? this.renderOptions() : null }
+                    { !this.state.editing ?  this.renderDisplay() : this.renderForm() }
+                </Card>
             </div>
         )
     }   
@@ -156,9 +165,21 @@ class Spot extends Component {
 Spot.propTypes = {
     title: PropTypes.string,
     prompt: PropTypes.string,
+    editing: PropTypes.bool,
+    classes: PropTypes.object.Required,
+    spots: PropTypes.array.isRequired,
     editSpot: PropTypes.func.isRequired,
     removeSpot: PropTypes.func.isRequired
 }
+
+const styles = theme => ({
+    root: {
+        ...theme.mixins.gutters(), 
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
+        marginTop: theme.spacing.unit * .5 
+    },
+})
 
 const mapStateToProps = (state) => {
     return {
@@ -173,7 +194,7 @@ const mapDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Spot))
+export default withRouter(withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Spot)))
 
 
 

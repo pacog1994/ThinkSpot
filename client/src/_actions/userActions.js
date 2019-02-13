@@ -20,6 +20,11 @@ export function login (f_name, l_name, username) {
 export function logout() {
     //Add Logic
     return {
-        type: userConstants.LOGOUT_USER
+        type: userConstants.LOGOUT_USER,
+        payload: {
+            "first_name": null,
+            "last_name": null,
+            "username": null
+        }
     }
 }

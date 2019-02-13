@@ -12,11 +12,7 @@ export const user = (state=initialState, action) => {
             return action.payload
         
         case userConstants.LOGOUT_USER:
-            return {
-                "first_name": null,
-                "last_name": null,
-                "username": null,
-            }
+            return action.payload
 
          default:
              return state;
