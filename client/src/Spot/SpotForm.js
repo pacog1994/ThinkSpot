@@ -26,7 +26,19 @@ class SpotForm extends Component {
         if (this.refs.title.value != null && 
             this.refs.desc.value != null) {
             const user = this.props.user
-            const uid = this.props.spots.length  
+             
+            //process spot uid
+            var uid = this.props.db_spots.length
+
+             for(var i = 0; i < this.props.db_spots.length; i++) {
+                 console.log(uid)
+                 if(this.props.db_spots[i].id !== i) {
+                    uid = i
+                    break;
+                 }
+             }
+             console.log(uid)
+
             this.props.addSpot(uid,
                             user.username, 
                             this.refs.title.value,
@@ -71,13 +83,15 @@ SpotForm.propTypes = {
     prompt: PropTypes.string,
     user: PropTypes.object.isRequired,
     spots: PropTypes.array.isRequired,
+    db_spots: PropTypes.array.isRequired,
     addSpot: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        spots: state.spots
+        spots: state.spots,
+        db_spots: state.db.spots
     }
 }
 const mapDispatchToProps = (dispatch) => {

@@ -1,6 +1,10 @@
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
 
+/**
+ * Custom route - if user is not logged in then reroute to login page
+ * @param {object} param0  
+ */
 export const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
       {...rest}

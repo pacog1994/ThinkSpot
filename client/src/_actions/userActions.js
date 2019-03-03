@@ -1,5 +1,14 @@
 import { userConstants } from '../_constants'
+/**
+ * Redux user state actions consuming server-side data from fetch API
+ */
 
+/**
+ * log in user
+ * @param {string} f_name first name
+ * @param {string} l_name last name
+ * @param {string} username username
+ */
 export function login (f_name, l_name, username) {
 
     //Validation logic
@@ -14,9 +23,7 @@ export function login (f_name, l_name, username) {
     }
 }
 
-/**
- * TODO: Add Logic for checking if user is logged in. 
- */
+//log out user
 export function logout() {
     //Add Logic
     return {

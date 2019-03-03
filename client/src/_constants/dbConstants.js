@@ -1,4 +1,7 @@
 export const dbConstants = {
     GET_ALL_USERS: "GET_ALL_USERS",
-    GET_ALL_SPOTS: "GET_ALL_SPOTS"
+    GET_ALL_SPOTS: "GET_ALL_SPOTS",
+    POST_SPOT: "ADD_SPOT",
+    PUT_SPOT: "EDIT_SPOT",
+    REMOVE_SPOT: "REMOVE_SPOT"
 }

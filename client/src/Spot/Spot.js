@@ -10,7 +10,6 @@ import { editSpot, removeSpot } from '../_actions'
 
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import Card from '@material-ui/core/Card'
 import FaPencil from 'react-icons/lib/fa/pencil'; 
 import FaTrash from 'react-icons/lib/fa/trash';
 import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
@@ -51,6 +50,8 @@ class Spot extends Component {
         } else {
             //get from store
             const spot = this.props.spots.find(spot => {
+                console.log(this.props.match.params.id)
+                console.log(spot.id.toString())
                 return this.props.match.params.id === spot.id.toString()
             })
 
@@ -125,13 +126,13 @@ class Spot extends Component {
     renderDisplay() {
         return (
             <div>
-                <Typography component="h2" variant="h1" gutterBottom>
+                <Typography component="h2" variant="title" gutterBottom>
                     {this.state.title}
                 </Typography>
-                <Typography component="body2" variant="body1">
+                <Typography component="p" variant="body1">
                     {this.state.description}
                 </Typography>
-                <Typography component="subtitle1" variant="subtitle1">
+                <Typography component="h3" variant="subheading">
                     <span>{this.state.author}</span>
                 </Typography>
             </div>
@@ -153,10 +154,8 @@ class Spot extends Component {
     render() {
         return (
             <div>
-                 <Card className={this.props.classes.root}>
-                    {  this.props.match.params.id && !this.state.editing ? this.renderOptions() : null }
-                    { !this.state.editing ?  this.renderDisplay() : this.renderForm() }
-                </Card>
+                {  this.props.match.params.id && !this.state.editing ? this.renderOptions() : null }
+                { !this.state.editing ?  this.renderDisplay() : this.renderForm() }
             </div>
         )
     }   
@@ -166,24 +165,17 @@ Spot.propTypes = {
     title: PropTypes.string,
     prompt: PropTypes.string,
     editing: PropTypes.bool,
-    classes: PropTypes.object.Required,
     spots: PropTypes.array.isRequired,
     editSpot: PropTypes.func.isRequired,
     removeSpot: PropTypes.func.isRequired
 }
 
 const styles = theme => ({
-    root: {
-        ...theme.mixins.gutters(), 
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
-        marginTop: theme.spacing.unit * .5 
-    },
 })
 
 const mapStateToProps = (state) => {
     return {
-        spots: state.spots
+        spots: state.db.spots
     }
 }
 

@@ -15,11 +15,11 @@
   "author": "Paco Gallegos <pacog1994@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.313.0",
+    "aws-sdk": "^2.413.0",
     "cors": "^2.8.5",
-    "express": "^4.16.3"
+    "express": "^4.16.4"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.18.10"
   }
 }
