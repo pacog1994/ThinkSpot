@@ -19,7 +19,7 @@ class Logout extends Component {
         return (<div></div>)}
 }
 
-Logout.PropTypes = { 
+Logout.propTypes = { 
     logout: PropTypes.func.isRequired
 }
 

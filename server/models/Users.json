@@ -3,25 +3,64 @@
         "first_name": "Paco",
         "last_name" : "Gallegos",
         "username": "paco123",
-        "password": "testing"
+        "password": "testing",
+        "posts": [
+        ]
     },
     {
         "first_name": "Abe",
         "last_name": "Lincoln",
         "username": "alin123",
-        "password": "testing1"
+        "password": "testing1",
+        "posts": [
+            {
+                "sid": 0,
+                "contributions":  [
+                    {
+                        "cid": 0,
+                        "contribution": "This is the first contribution"
+                    },
+                    { 
+                        "cid": 2,
+                        "contribution": "What is going on this is the third contribution"
+                    }
+                ] 
+             } 
+        ]
     },
     {
         "first_name": "Sponge",
         "last_name": "Bob",
         "username": "sponge1",
-        "password": "pineapple"
+        "password": "pineapple",
+        "posts": [
+            {
+                "sid": 0,
+                "contributions": [
+                    {
+                        "cid": 1,
+                        "contribution": "Abe with the second contribution"
+                    }
+                ]
+            }
+        ]
     },
     {
         "first_name": "Bob",
         "last_name": "Proctor",
         "username": "bp",
-        "password": "123"
+        "password": "123",
+        "posts": [
+            {
+                "sid": 0,
+                "contributions": [
+                    {
+                        "cid": 3,
+                        "contribution": "Bp with the fourth contribution"
+                    }
+                ]
+            }
+        ]
     }
 ]
 

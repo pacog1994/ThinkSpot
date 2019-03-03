@@ -6,13 +6,14 @@ import { connect } from 'react-redux'
 
 import { withRouter } from 'react-router-dom'
 
-import { login, getSpot } from '../_actions'
+import { login } from '../_actions'
 
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 
+//handles login
 class Login extends Component {
     constructor(props) {
         super(props)
@@ -41,7 +42,6 @@ class Login extends Component {
 
         return user ? this.setState({first_name: user.first_name}, () => {
            this.props.login(user.first_name, user.last_name, user.username)
-           this.props.getSpot(user.username)
            this.props.history.push('/')
         }) : console.log("Username or password is incorrect")
     }
@@ -96,8 +96,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        login: login,
-        getSpot: getSpot
+        login: login
     }, dispatch)
 }
 
