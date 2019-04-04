@@ -1,5 +1,4 @@
 import { dbConstants } from '../_constants'
-
 const initialState = {
     users: [],
     spots: []
@@ -19,7 +18,7 @@ export const db = (state = initialState, action) => {
                 spots: action.payload
             }
         
-        case dbConstants.POST_SPOT:
+        case dbConstants.CREATE_SPOT:
             return { 
                 ...state,
                 spots: [
@@ -28,7 +27,7 @@ export const db = (state = initialState, action) => {
                 ]
             }   
         
-        case dbConstants.PUT_SPOT:
+        case dbConstants.UPDATE_SPOT:
             return {
                 ...state,
                 spots: [
@@ -38,11 +37,30 @@ export const db = (state = initialState, action) => {
                 ]
             }
 
-        case dbConstants.REMOVE_SPOT:
+        case dbConstants.DELETE_SPOT:
             return { 
                 ...state,
                 spots: [...state.spots.filter(spot => spot.id !== action.payload.id)]
             }
+
+        case dbConstants.CREATE_POST:
+            const selectedSpot = state.spots.find(spot => spot.id === action.payload.id)
+            const updatedPost = selectedSpot.posts.concat(action.payload.post)
+            const updatedSpot = Object.assign(selectedSpot, {"posts": updatedPost})
+            return {
+                ...state,
+                spots: [
+                    ...state.spots.filter(spot => spot.id !== action.payload.id),
+                    updatedSpot
+                ]
+            }
+
+        case dbConstants.UPDATE_POST:
+            return
+
+        case dbConstants.DELETE_POST:
+            return 
+        
 
          default:
              return state;

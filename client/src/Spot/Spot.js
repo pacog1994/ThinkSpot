@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import { withRouter } from 'react-router-dom'
 
-import { editSpot, removeSpot } from '../_actions'
+import {editSpot, removeSpot } from '../_actions'
 
 import { withStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
-import FaPencil from 'react-icons/lib/fa/pencil'; 
-import FaTrash from 'react-icons/lib/fa/trash';
+import FaPencil from 'react-icons/lib/fa/pencil'
+import FaTrash from 'react-icons/lib/fa/trash'
 import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
+
+import Posts from './Posts'
+import PostForm from './PostForm'
 
 class Spot extends Component {
     
@@ -23,12 +25,13 @@ class Spot extends Component {
             id: null,
             author: null,
             title: null,
-            description: null
+            description: null,
+            posts: []
         }  
         this.edit = this.edit.bind(this)
         this.remove = this.remove.bind(this)
         this.save = this.save.bind(this)
-        this.renderDisplay = this.renderDisplay.bind(this)
+        this.renderQuestion = this.renderQuestion.bind(this)
         this.renderForm = this.renderForm.bind(this)
         this.renderOptions = this.renderOptions.bind(this)
     }
@@ -38,20 +41,18 @@ class Spot extends Component {
      */
 
     componentDidMount() {
-        console.log("Component mounted & rendering spot")
         if(this.props.match.params.id == null) {
             //get from parent
             this.setState({
                 id: this.props.id,
                 author: this.props.author,
                 title: this.props.title,
-                description: this.props.description
+                description: this.props.description,
+                posts: this.props.posts
             })
         } else {
             //get from store
             const spot = this.props.spots.find(spot => {
-                console.log(this.props.match.params.id)
-                console.log(spot.id.toString())
                 return this.props.match.params.id === spot.id.toString()
             })
 
@@ -59,33 +60,48 @@ class Spot extends Component {
                 id: spot.id,
                 author: spot.author,
                 title: spot.title,
-                description: spot.description
+                description: spot.description,
+                posts: spot.posts
+            })
+        }
+    }
+    
+    componentWillReceiveProps(newProps) {
+            const spot = newProps.spots.find(spot => {
+                return this.props.match.params.id === spot.id.toString()
             })
 
-        }
+            this.setState({
+                id: spot.id,
+                author: spot.author,
+                title: spot.title,
+                description: spot.description,
+                posts: spot.posts
+            })
     }
     
     /**
      * CRUD Methods 
      */
-
+    //toggle editing mode
     edit() {
         this.setState({
             editing: true
         })
     }
-
+    //remove spot
     remove() {
         this.props.removeSpot(this.state.id)
         this.props.history.replace('/spots')
     }
-
+    //save edited spot
     save() {
         let spot = { 
             id: this.state.id,
             author: this.state.author,
             title: this.newTitle.value,
-            description: this.newDesc.value
+            description: this.newDesc.value,
+            posts: this.state.posts
         }
         this.props.editSpot(spot)
         this.setState({
@@ -123,18 +139,25 @@ class Spot extends Component {
         )
     }
 
-    renderDisplay() {
+    renderQuestion() {
+        const classes = this.props.classes
         return (
             <div>
-                <Typography component="h2" variant="title" gutterBottom>
-                    {this.state.title}
-                </Typography>
-                <Typography component="p" variant="body1">
-                    {this.state.description}
-                </Typography>
-                <Typography component="h3" variant="subheading">
-                    <span>{this.state.author}</span>
-                </Typography>
+                <div className={classes.header}>
+                    <h1>
+                        {this.state.title}
+                    </h1>
+                </div>
+                <div className={classes.body}>
+                    <p>
+                        {this.state.description}
+                    </p>
+                </div>
+                <div className={classes.footer}>
+                    <p>
+                        <span>asked by: <strong>{this.state.author}</strong></span>
+                    </p>
+                </div>
             </div>
         )
     }
@@ -152,10 +175,20 @@ class Spot extends Component {
     }
 
     render() {
+        const classes = this.props.classes
         return (
-            <div>
+            <div className={classes.root}>
                 {  this.props.match.params.id && !this.state.editing ? this.renderOptions() : null }
-                { !this.state.editing ?  this.renderDisplay() : this.renderForm() }
+                    { !this.state.editing ?  this.renderQuestion() : this.renderForm() }
+                {
+                    this.state.posts.length === 0 ?
+                    <p>There is no answers for this spot</p> :
+                    <Posts posts={this.state.posts}/>
+                }
+
+                <div className={classes.header}></div>
+                <br></br>
+                <PostForm spotId={this.state.id}/>
             </div>
         )
     }   
@@ -171,6 +204,22 @@ Spot.propTypes = {
 }
 
 const styles = theme => ({
+    root: {
+        margin: "0 auto",
+        marginTop: theme.spacing.unit * 4,
+        width: "60%",
+        textAlign: "center" 
+    },
+    header: {
+        borderBottom: "1px solid #e4e6e8",
+    },
+    body: {
+        marginTop: theme.spacing.unit * 2,
+        marginBottom: theme.spacing.unit * 2
+    },
+    footer: {
+        padding: theme.spacing.unit * 4
+    }
 })
 
 const mapStateToProps = (state) => {
