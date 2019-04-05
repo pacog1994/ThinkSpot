@@ -103,15 +103,17 @@ export function removeSpot(uid) {
 /**
  * add post to current spot
  * @param {string} spotId the spot id that post belongs to
+ * @param {string} uid the unique id given to a post
  * @param {string} author the author of the post 
  * @param {string} reply the author's reply
  */
-export function addPost(spotId, author, reply) {
+export function addPost(spotId, uid, author, reply) {
     //Validataion logic
 
 
     //Proccesing
-    const post = { 
+    const post = {
+        "id": uid, 
         "author": author,
         "post": reply,
         "comments": []  
@@ -122,6 +124,36 @@ export function addPost(spotId, author, reply) {
         payload: {
             "id": spotId,
             "post": post
+        }
+    }
+}
+/**
+ * edit post in current spot
+ * @param {string} spotId id of the current spot
+ * @param {object} post  updatedPost
+ */
+export function editPost(spotId, post) {
+    //Validation logic
+
+    return {
+        type: dbConstants.UPDATE_POST,
+        payload: {
+            "spotId": spotId,
+            "post": post
+        }
+    }
+}
+/**
+ * delete post in current spot
+ * @param {string} spotId id of the current spot 
+ * @param {string} postId id of the post to remove
+ */
+export function deletePost(spotId, postId) {
+    return {
+        type: dbConstants.DELETE_POST,
+        payload: {
+            "spotId": spotId,
+            "id": postId
         }
     }
 }

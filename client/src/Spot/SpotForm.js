@@ -28,10 +28,10 @@ class SpotForm extends Component {
             const user = this.props.user
              
             //process spot uid
-            var uid = this.props.db_spots.length
+            var uid = this.props.dbSpots.length
 
-             for(var i = 0; i < this.props.db_spots.length; i++) {
-                 if(this.props.db_spots[i].id !== i) {
+             for(var i = 0; i < this.props.dbSpots.length; i++) {
+                 if(this.props.dbSpots[i].id !== i) {
                     uid = i
                     break;
                  }
@@ -45,9 +45,7 @@ class SpotForm extends Component {
         }
     }
 
-    render() {   
-        const { prompt } = this.props
-        
+    render() {           
         return (
             <div style={{ marginTop: "10px", marginLeft: "10px", width: "60%" }}>
                 <form className="addSpotForm" onSubmit={this.submit}>
@@ -87,16 +85,14 @@ SpotForm.propTypes = {
     title: PropTypes.string,
     prompt: PropTypes.string,
     user: PropTypes.object.isRequired,
-    spots: PropTypes.array.isRequired,
-    db_spots: PropTypes.array.isRequired,
+    dbSpots: PropTypes.array.isRequired,
     addSpot: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        spots: state.spots,
-        db_spots: state.db.spots
+        dbSpots: state.db.spots
     }
 }
 const mapDispatchToProps = (dispatch) => {

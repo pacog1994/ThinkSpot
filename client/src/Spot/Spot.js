@@ -9,12 +9,11 @@ import { withRouter } from 'react-router-dom'
 import {editSpot, removeSpot } from '../_actions'
 
 import { withStyles } from '@material-ui/core/styles'
-import FaPencil from 'react-icons/lib/fa/pencil'
-import FaTrash from 'react-icons/lib/fa/trash'
 import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
 
 import Posts from './Posts'
 import PostForm from './PostForm'
+import Options from './Options'
 
 class Spot extends Component {
     
@@ -28,12 +27,12 @@ class Spot extends Component {
             description: null,
             posts: []
         }  
+
+        this.save = this.save.bind(this)
         this.edit = this.edit.bind(this)
         this.remove = this.remove.bind(this)
-        this.save = this.save.bind(this)
         this.renderQuestion = this.renderQuestion.bind(this)
         this.renderForm = this.renderForm.bind(this)
-        this.renderOptions = this.renderOptions.bind(this)
     }
 
     /**
@@ -95,7 +94,9 @@ class Spot extends Component {
         this.props.history.replace('/spots')
     }
     //save edited spot
-    save() {
+    save = (e) => {
+        e.preventDefault()
+        
         let spot = { 
             id: this.state.id,
             author: this.state.author,
@@ -117,7 +118,7 @@ class Spot extends Component {
     
     renderForm() {
         return (
-            <form className="editSpotForm" onSubmit={this.save}>
+            <form className="spotForm" onSubmit={this.save}>
                 <label htmlFor="title">Title</label>
                 <br></br>
                 <input id="title"
@@ -162,33 +163,24 @@ class Spot extends Component {
         )
     }
 
-    /**
-     * render options if looking in Spots page and not in editing mode
-     */
-    renderOptions() {
-        return (
-            <div style={{float: "right"}}>
-                <button onClick={() => this.edit()}><FaPencil/>Edit</button>
-                <button onClick={() => this.remove()}><FaTrash/>Remove</button> 
-            </div>
-        )
-    }
-
     render() {
         const classes = this.props.classes
         return (
             <div className={classes.root}>
-                {  this.props.match.params.id && !this.state.editing ? this.renderOptions() : null }
+                {  this.props.match.params.id && !this.state.editing ? 
+                    <Options edit={this.edit} 
+                        remove={this.remove}/> : null 
+                    }
                     { !this.state.editing ?  this.renderQuestion() : this.renderForm() }
                 {
                     this.state.posts.length === 0 ?
                     <p>There is no answers for this spot</p> :
-                    <Posts posts={this.state.posts}/>
+                    <Posts spotId={this.state.id} posts={this.state.posts}/>
                 }
 
                 <div className={classes.header}></div>
                 <br></br>
-                <PostForm spotId={this.state.id}/>
+                <PostForm posts={this.state.posts} spotId={this.state.id}/>
             </div>
         )
     }   

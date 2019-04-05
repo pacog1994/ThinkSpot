@@ -19,7 +19,18 @@ class PostForm extends Component {
 
     add = (e) => {
         e.preventDefault();
-        this.props.addPost(this.props.spotId, this.props.user.username, this.post.value)
+
+        //process spot uid
+        var uid = this.props.posts.length
+
+        for(var i = 0; i < this.props.posts.length; i++) {
+            if(this.props.posts[i].id !== i) {
+               uid = i
+               break;
+            }
+        }
+
+        this.props.addPost(this.props.spotId, uid, this.props.user.username, this.post.value)
     }
 
     render() {
