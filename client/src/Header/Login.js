@@ -20,15 +20,16 @@ class Login extends Component {
         this.state = {
             username: "",
             password: "",
-            first_name: "" 
+            first_name: "", 
+            profile_picture: ""
         }
         this.logIn = this.logIn.bind(this)
         this.onChange = this.onChange.bind(this)
     }
 
-    onChange = name => e => {
+    onChange = attr => e => {
         this.setState({
-            [name]: e.target.value
+            [attr]: e.target.value
         })
     }
 
@@ -82,7 +83,6 @@ class Login extends Component {
 
 Login.propTypes = { 
     login: PropTypes.func.isRequired,
-    getSpot: PropTypes.func.isRequired,
     users: PropTypes.array.isRequired,
     errors: PropTypes.array.isRequired
 }

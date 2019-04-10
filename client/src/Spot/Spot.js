@@ -14,6 +14,7 @@ import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
 import Posts from './Posts'
 import PostForm from './PostForm'
 import Options from './Options'
+import { Quill } from '../Quill'
 
 class Spot extends Component {
     
@@ -167,7 +168,7 @@ class Spot extends Component {
         const classes = this.props.classes
         return (
             <div className={classes.root}>
-                {  this.props.match.params.id && !this.state.editing ? 
+                {  this.state.author === this.props.username && this.props.match.params.id && !this.state.editing ? 
                     <Options edit={this.edit} 
                         remove={this.remove}/> : null 
                     }
@@ -191,6 +192,7 @@ Spot.propTypes = {
     prompt: PropTypes.string,
     editing: PropTypes.bool,
     spots: PropTypes.array.isRequired,
+    username: PropTypes.string,
     editSpot: PropTypes.func.isRequired,
     removeSpot: PropTypes.func.isRequired
 }
@@ -216,7 +218,8 @@ const styles = theme => ({
 
 const mapStateToProps = (state) => {
     return {
-        spots: state.db.spots
+        spots: state.db.spots,
+        username: state.user.username
     }
 }
 

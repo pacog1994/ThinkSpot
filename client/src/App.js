@@ -16,8 +16,6 @@ import { connect } from 'react-redux'
 import { getUsers, getSpots } from './_actions'
 import { withStyles } from '@material-ui/core/styles'
 
-import { Whoops404 } from './Whoops404'
-
 
 class App extends Component {
     
@@ -42,7 +40,6 @@ class App extends Component {
                             <PrivateRoute exact strict path="/spots" component={MySpots}/>
                             <PrivateRoute exact strict path="/spot/add" component={SpotForm}/>
                             <Route path="/spots/:id" component={Spot} />
-                            <Route path="*/404" component={Whoops404}/>
                         </Switch>
                     </div>
                     <Footer/>

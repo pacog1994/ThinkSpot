@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders SpotList for Home component 1`] = `
+<div>
+  <a
+    className="SpotList-links-2"
+    href="#/spots/0"
+    onClick={[Function]}
+  >
+    <div
+      className="MuiPaper-root-4 MuiPaper-elevation1-7 MuiPaper-rounded-5 MuiCard-root-3 SpotList-root-1"
+    >
+      <h1>
+        Entry 1
+      </h1>
+      <p
+        className="MuiTypography-root-31 MuiTypography-body1-40 MuiTypography-noWrap-47"
+      >
+        Hello World, this is the first entry in thinkspot. Thinkspot is intended to be a collaborative site for brainstorming great ideas.
+      </p>
+      <h3>
+        paco123
+      </h3>
+    </div>
+  </a>
+  <a
+    className="SpotList-links-2"
+    href="#/spots/1"
+    onClick={[Function]}
+  >
+    <div
+      className="MuiPaper-root-4 MuiPaper-elevation1-7 MuiPaper-rounded-5 MuiCard-root-3 SpotList-root-1"
+    >
+      <h1>
+        Entry 2
+      </h1>
+      <p
+        className="MuiTypography-root-31 MuiTypography-body1-40 MuiTypography-noWrap-47"
+      >
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </p>
+      <h3>
+        paco123
+      </h3>
+    </div>
+  </a>
+  <a
+    className="SpotList-links-2"
+    href="#/spots/2"
+    onClick={[Function]}
+  >
+    <div
+      className="MuiPaper-root-4 MuiPaper-elevation1-7 MuiPaper-rounded-5 MuiCard-root-3 SpotList-root-1"
+    >
+      <h1>
+        Entry 3
+      </h1>
+      <p
+        className="MuiTypography-root-31 MuiTypography-body1-40 MuiTypography-noWrap-47"
+      >
+        First entry assigned to SpongeBob
+      </p>
+      <h3>
+        sponge1
+      </h3>
+    </div>
+  </a>
+  <a
+    className="SpotList-links-2"
+    href="#/spots/3"
+    onClick={[Function]}
+  >
+    <div
+      className="MuiPaper-root-4 MuiPaper-elevation1-7 MuiPaper-rounded-5 MuiCard-root-3 SpotList-root-1"
+    >
+      <h1>
+        Entry 4
+      </h1>
+      <p
+        className="MuiTypography-root-31 MuiTypography-body1-40 MuiTypography-noWrap-47"
+      >
+        First entry assigned to Bob Proctor
+      </p>
+      <h3>
+        bp
+      </h3>
+    </div>
+  </a>
+</div>
+`;
+
+exports[`renders SpotList for MySpot Component 1`] = `
+<div>
+  <a
+    className="SpotList-links-2"
+    href="#/spots/0"
+    onClick={[Function]}
+  >
+    <div
+      className="MuiPaper-root-4 MuiPaper-elevation1-7 MuiPaper-rounded-5 MuiCard-root-3 SpotList-root-1"
+    >
+      <h1>
+        Entry 1
+      </h1>
+      <p
+        className="MuiTypography-root-31 MuiTypography-body1-40 MuiTypography-noWrap-47"
+      >
+        Hello World, this is the first entry in thinkspot. Thinkspot is intended to be a collaborative site for brainstorming great ideas.
+      </p>
+      <h3>
+        paco123
+      </h3>
+    </div>
+  </a>
+  <a
+    className="SpotList-links-2"
+    href="#/spots/1"
+    onClick={[Function]}
+  >
+    <div
+      className="MuiPaper-root-4 MuiPaper-elevation1-7 MuiPaper-rounded-5 MuiCard-root-3 SpotList-root-1"
+    >
+      <h1>
+        Entry 2
+      </h1>
+      <p
+        className="MuiTypography-root-31 MuiTypography-body1-40 MuiTypography-noWrap-47"
+      >
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </p>
+      <h3>
+        paco123
+      </h3>
+    </div>
+  </a>
+</div>
+`;

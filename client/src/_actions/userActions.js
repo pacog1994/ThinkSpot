@@ -18,7 +18,7 @@ export function login (f_name, l_name, username) {
         payload: {
             "first_name": f_name,
             "last_name": l_name, 
-            "username": username
+            "username": username,            
         }
     }
 }

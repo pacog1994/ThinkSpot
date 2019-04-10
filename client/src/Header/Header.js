@@ -10,6 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import FaUser from 'react-icons/lib/fa/user'
 
 //Container Component for different links - Log in/out, MySpot and home
 class Header extends Component {          
@@ -59,7 +60,7 @@ class Header extends Component {
                                             My Spots
                                         </Link>
                                     </Button>
-                                    <span>{this.props.user.first_name}</span>
+                                    <span>{this.props.user.first_name} <FaUser/></span>
                                     <Button onClick={this.logOut} color="inherit">
                                         Log Out
                                     </Button>

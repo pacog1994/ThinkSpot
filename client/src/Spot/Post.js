@@ -72,9 +72,10 @@ class Post extends Component {
     renderPost() {
         const post = this.props.post
         const classes= this.props.classes
+
         return(
             <div>
-                <p>{post.post}</p>
+                <div dangerouslySetInnerHTML={{__html: post.post}}/> 
                 <p>posted by: <strong>{post.author}</strong></p>
                 Reply
                 {
@@ -95,7 +96,6 @@ class Post extends Component {
 
     
     render() {
-        {console.log(this.props.post.comments)}
         const classes = this.props.classes
         return (
             <Card className={classes.posts}>
@@ -115,7 +115,7 @@ Post.propTypes = {
     deletePost: PropTypes.func.isRequired,
     editPost: PropTypes.func.isRequired,
     post: PropTypes.object.isRequired,
-    spotId: PropTypes.string.isRequired
+    spotId: PropTypes.number.isRequired
 }
 
 const styles = (theme) => ({ 

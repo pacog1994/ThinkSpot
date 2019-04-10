@@ -5,7 +5,8 @@
         "username": "paco123",
         "password": "testing",
         "posts": [
-        ]
+        ],
+        "profile_picture": "../public/images/avatar1.png"
     },
     {
         "first_name": "Abe",
@@ -26,7 +27,8 @@
                     }
                 ] 
              } 
-        ]
+        ],
+        "profile_picture": "../../client/public/images/avatar3.png"
     },
     {
         "first_name": "Sponge",
@@ -43,7 +45,8 @@
                     }
                 ]
             }
-        ]
+        ],
+        "profile_picture": "../../client/public/images/avatar2.png"
     },
     {
         "first_name": "Bob",
@@ -60,7 +63,8 @@
                     }
                 ]
             }
-        ]
+        ],
+        "profile_picture": ""
     }
 ]
 

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Link, withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import UserSpotList from './SpotListTypes/UserSpotList'
+import SpotList from './SpotList/SpotList'
 import { getSpot } from './_actions'
 
 //Container for user-related spots
@@ -21,7 +21,7 @@ class MySpots extends Component {
                     <Button variant="outlined" color="primary">Create a Spot!</Button>
                 </Link>
                 { spots.length !== 0 
-                ?   <UserSpotList></UserSpotList>
+                ?   <SpotList spots={spots}/>
                 : this.props.history.push('/')
                 }
             </div>
