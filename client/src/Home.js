@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import GeneralSpotList from './Spot/SpotListTypes/GeneralSpotList'
+import SpotList from './SpotList/SpotList'
 
 
 /**
@@ -19,10 +19,10 @@ class Home extends Component {
     render() {
         const spots = this.props.spots
         return (
-            <div style={{textAlign: "center", marginTop: 50, height: 100}}>
-                <Grid container justify="center">
-                    <Grid item alignItems={'flex-end'} xs={10}>
-                        <Typography component="h1" variant="h1">Top Spots</Typography>
+            <div style={{textAlign: "center", marginTop: 50}}>
+                <Grid container  alignItems={'flex-end'} justify="center">
+                    <Grid item xs={10}>
+                        <Typography component="h1" variant="display2">Top Spots</Typography>
                     </Grid>
                     <Grid item xs={3}>
                         <span> Filter </span>
@@ -30,7 +30,7 @@ class Home extends Component {
                 </Grid>
                 <br></br>
                 { spots.length !== 0 
-                    ? <GeneralSpotList></GeneralSpotList>
+                    ? <SpotList spots={spots}/>
                     : <div></div>
                 }
             </div>

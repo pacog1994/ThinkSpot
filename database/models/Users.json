@@ -5,7 +5,8 @@
         "username": "paco123",
         "password": "testing",
         "posts": [
-        ]
+        ],
+        "profile_picture": "avatar1.png"
     },
     {
         "first_name": "Abe",
@@ -22,11 +23,12 @@
                     },
                     { 
                         "cid": 2,
-                        "contribution": "What is going on this is the third contribution"
+                        "contribution": "This is the third contribution"
                     }
                 ] 
              } 
-        ]
+        ],
+        "profile_picture": "avatar3.png"
     },
     {
         "first_name": "Sponge",
@@ -43,7 +45,8 @@
                     }
                 ]
             }
-        ]
+        ],
+        "profile_picture": "avatar2.png"
     },
     {
         "first_name": "Bob",
@@ -60,7 +63,8 @@
                     }
                 ]
             }
-        ]
+        ],
+        "profile_picture": ""
     }
 ]
 

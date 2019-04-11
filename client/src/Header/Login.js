@@ -20,15 +20,16 @@ class Login extends Component {
         this.state = {
             username: "",
             password: "",
-            first_name: "" 
+            first_name: "", 
+            profile_picture: ""
         }
         this.logIn = this.logIn.bind(this)
         this.onChange = this.onChange.bind(this)
     }
 
-    onChange = name => e => {
+    onChange = attr => e => {
         this.setState({
-            [name]: e.target.value
+            [attr]: e.target.value
         })
     }
 
@@ -40,8 +41,8 @@ class Login extends Component {
             && this.state.password === user.password
         })    
 
-        return user ? this.setState({first_name: user.first_name}, () => {
-           this.props.login(user.first_name, user.last_name, user.username)
+        return user ? this.setState({first_name: user.first_name, profile_picture: user.profile_picture}, () => {
+           this.props.login(user.first_name, user.last_name, user.username, user.profile_picture)
            this.props.history.push('/')
         }) : console.log("Username or password is incorrect")
     }
@@ -82,7 +83,6 @@ class Login extends Component {
 
 Login.propTypes = { 
     login: PropTypes.func.isRequired,
-    getSpot: PropTypes.func.isRequired,
     users: PropTypes.array.isRequired,
     errors: PropTypes.array.isRequired
 }

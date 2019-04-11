@@ -19,7 +19,7 @@ class SpotList extends Component {
                             className={classes.links}>  
                             <Card className={this.props.classes.root}>
                                 <h1>{spot.title}</h1>
-                                <p>{spot.description}</p>
+                                <Typography noWrap>{spot.description}</Typography>
                                 <h3>{spot.author}</h3>
                             </Card>
                         </Link>   
@@ -38,8 +38,7 @@ SpotList.propTypes = {
 const styles = theme => ({
     root: {
         ...theme.mixins.gutters(), 
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
+        padding: theme.spacing.unit * 4,
         marginTop: theme.spacing.unit * .5 
     },
     links: {

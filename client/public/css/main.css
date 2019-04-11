@@ -1,6 +1,22 @@
-body { 
-    background-image: url("../images/background.jpg");
-    background-position-x: center;
-    background-size: cover; 
-    background-repeat: none;
+.quill .ql-editor {
+    overflow-y: scroll;
+    resize: vertical;
+}
+
+.quill .ql-container {
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    background: #fefcfc;
+}
+  
+  /* Snow Theme */
+.quill .ql-snow.ql-toolbar {
+    display: block;
+    background: #eaecec;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+}
+
+.quill .ql-editor {
+    min-height: 18em;
 }

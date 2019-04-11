@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
 
 import { addSpot } from '../_actions'
 
-import FaFloppy0 from 'react-icons/lib/fa/floppy-o';
+import TextField from '@material-ui/core/TextField'
+import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
 
 
 /**
  * Form component for creating a spot
  */
 class SpotForm extends Component {  
-    
     constructor (props) {
         super(props);
         this.submit = this.submit.bind(this);
@@ -23,51 +23,54 @@ class SpotForm extends Component {
 
    submit = (e) => {
         e.preventDefault();
-        if (this.refs.title.value != null && 
-            this.refs.desc.value != null) {
+        if (this.newTitle.value != null && 
+            this.newDesc.value != null) {
             const user = this.props.user
              
             //process spot uid
-            var uid = this.props.db_spots.length
+            var uid = this.props.dbSpots.length
 
-             for(var i = 0; i < this.props.db_spots.length; i++) {
-                 console.log(uid)
-                 if(this.props.db_spots[i].id !== i) {
+             for(var i = 0; i < this.props.dbSpots.length; i++) {
+                 if(this.props.dbSpots[i].id !== i) {
                     uid = i
                     break;
                  }
              }
-             console.log(uid)
-
+             
             this.props.addSpot(uid,
                             user.username, 
-                            this.refs.title.value,
-                            this.refs.desc.value)
+                            this.newTitle.value,
+                            this.newDesc.value)
            this.props.history.push('/spots') 
         }
     }
 
-    render() {   
-        const { prompt } = this.props
-        
+    render() {           
         return (
-            <div style={{ padding: "5px" }}>
+            <div style={{ marginTop: "10px", marginLeft: "10px", width: "60%" }}>
                 <form className="addSpotForm" onSubmit={this.submit}>
-                    <label htmlFor="title">Title</label>
-                    <br></br>
-                    <input id="title" 
-                        type="text"
+                    <TextField
+                        autoFocus={true}
+                        id="title"
+                        label="Title"
                         required
-                        ref="title"
+                        inputRef={input => (this.newTitle = input)}
+                        type="text"
                     />
                     <br></br>
-                    <label htmlFor="prompt">Description</label>
-                    <br></br>
-                    <textarea id="prompt" 
-                        type="text" 
-                        defaultValue={prompt}
+                    <TextField
+                        fullWidth={true}
+                        label="Description"
+                        id="prompt"
+                        inputRef={input => (this.newDesc = input)}
+                        margin="dense"
+                        multiline={true}
+                        placeholder="Write a description for your spot"
                         required
-                        ref="desc"
+                        rows={2}
+                        rowsMax={4}
+                        type="string"
+                        
                     />
                     <br></br>
                     <button><FaFloppy0/>Create Spot</button>
@@ -82,16 +85,14 @@ SpotForm.propTypes = {
     title: PropTypes.string,
     prompt: PropTypes.string,
     user: PropTypes.object.isRequired,
-    spots: PropTypes.array.isRequired,
-    db_spots: PropTypes.array.isRequired,
+    dbSpots: PropTypes.array.isRequired,
     addSpot: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        spots: state.spots,
-        db_spots: state.db.spots
+        dbSpots: state.db.spots
     }
 }
 const mapDispatchToProps = (dispatch) => {

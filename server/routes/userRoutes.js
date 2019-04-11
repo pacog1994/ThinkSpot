@@ -1,5 +1,5 @@
 const userRoutes = require('express').Router();
-const users =  require('../models/Users');
+const users =  require('../../database/models/Users');
 
 /**
  * get all users
