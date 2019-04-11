@@ -7,6 +7,9 @@ import { addPost} from '../_actions'
 
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+
+import sanitize from 'sanitize-html'
+import { withStyles } from '@material-ui/core/styles'
 import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
 
 /**
@@ -31,8 +34,8 @@ class PostForm extends Component {
                break;
             }
         }
-
-        this.props.addPost(this.props.spotId, uid, this.props.user.username, this.delta)
+        var cleanPost = sanitize(this.delta)
+        this.props.addPost(this.props.spotId, uid, this.props.user.username, cleanPost)
     }
 
     onChange = (delta) => {
@@ -40,10 +43,12 @@ class PostForm extends Component {
     }
 
     render() {
+        const classes = this.props.classes
         return(
             <form className="spotPostForm" onSubmit={this.add}>
-                <label htmlFor="post">New Post</label>
-                <br></br>
+                <label className={classes.postLabel} htmlFor="post">New Post</label>
+                <br/>
+                <br/>
                 <ReactQuill theme="snow" 
                             id="post"
                             onChange={this.onChange}
@@ -51,10 +56,6 @@ class PostForm extends Component {
                             modules={PostForm.modules}
                             formats={PostForm.formats}
                  />
-                {/* <textarea id="post" 
-                    type="text" 
-                    ref={input => this.post = input}
-                /> */}
                 <br></br>
                 <button><FaFloppy0/></button>
             </form>
@@ -84,6 +85,13 @@ PostForm.formats = [
   ]
   
 
+const styles = theme => ({
+    postLabel: {
+        fontSize: "24px",
+        fontWeight: "bold",
+    }
+})
+
 const mapStateToProps = (state) => {
     return {
         user: state.user
@@ -96,6 +104,6 @@ const mapDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostForm)
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(PostForm))
 
 

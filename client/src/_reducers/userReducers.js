@@ -3,7 +3,8 @@ import { userConstants } from '../_constants'
 const initialState = { 
     first_name: null,
     last_name: null,
-    username: null
+    username: null,
+    profile_picture: ""
 }
 
 export const user = (state=initialState, action) => {

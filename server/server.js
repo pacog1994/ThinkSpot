@@ -9,7 +9,7 @@ const port = process.env.PORT || 3100;
 //Load Routes
 const routes = require('./routes');
 //Load JSON Model
-const users = require('./models/Users');
+const users = require('../database/models/Users');
 
 app.use(cors());
 app.use('/', routes);

@@ -9,22 +9,38 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import FaUser from 'react-icons/lib/fa/user'
 
 //Container Component for different links - Log in/out, MySpot and home
 class Header extends Component {          
     constructor(props) {
         super(props)
+        this.state = {
+            anchorEl: null
+        }
         this.logOut = this.logOut.bind(this)
     }
     
-    logOut = (e) => {
+    //event handlers
+    handleOpen = e => {
+        this.setState({ anchorEl: e.currentTarget })
+    }
+
+    handleClose = () => {
+        this.setState({ anchorEl: null })
+    }
+
+    logOut = e => {
         e.preventDefault()
         this.props.history.push('/logout')
     }  
 
     render() {
+        const { anchorEl } = this.state
         const loggedIn = this.props.user.username !== null ? true : false
         const classes = this.props.classes
         return ( 
@@ -41,6 +57,7 @@ class Header extends Component {
                                 Think Spot
                             </Link>
                         </Typography>
+                        &emsp;&emsp;
                         <div >
                             {!loggedIn
                                 ? <Button color="inherit"> 
@@ -60,10 +77,30 @@ class Header extends Component {
                                             My Spots
                                         </Link>
                                     </Button>
-                                    <span>{this.props.user.first_name} <FaUser/></span>
-                                    <Button onClick={this.logOut} color="inherit">
-                                        Log Out
+                                    
+                                    <Button
+                                        id='menuButton'
+                                        aria-owns={anchorEl ? 'simple-menu' : undefined}
+                                        aria-haspopup='true'
+                                        color='inherit'
+                                        onClick={this.handleOpen}
+                                    > 
+                                    { //If user has a profile picture load, if not use default Avatar picture
+                                        this.props.user.profile_picture !== "" 
+                                        ? <Avatar src={require("./" + this.props.user.profile_picture)}/>
+                                        : <FaUser/> 
+                                        
+                                    }
+                                        <span className={classes.profileName}>{this.props.user.first_name}</span>
                                     </Button>
+                                    <Menu
+                                        id='simple-menu'
+                                        anchorEl={anchorEl}
+                                        open={Boolean(anchorEl)}
+                                        onClose={this.handleClose}
+                                    >
+                                        <MenuItem onClick={this.logOut} color="inherit">Log Out</MenuItem>
+                                    </Menu>
                                 </div>
                             }
                         </div>
@@ -78,14 +115,18 @@ Header.propTypes = {
     user: PropTypes.object
 }
 
-const styles =  { 
+const styles = theme =>  ({ 
     root: {
         flexGrow: 1
     },
     grow: {
         flexGrow: 1
+    },
+    profileName: {
+        fontSize: ".8em",
+        paddingLeft: theme.spacing.unit * 1
     }
-}
+})
 
 const mapStateToProps = (state) => {
     return {

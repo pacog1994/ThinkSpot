@@ -1,8 +1,12 @@
 const spotRoutes = require('express').Router();
-const spots =  require('../models/Spots');
+const spots =  require('../../database/models/Spots');
 
 /**
- * get all spots or get specific spot based off author
+ * @api [get] /spots
+ * description: Returns all spots from the system that the user has access to
+ * responses:
+ *  200:
+ *      description: a list of spots.
  */
 spotRoutes.get('/', (req, res) => {
     
@@ -17,6 +21,7 @@ spotRoutes.get('/', (req, res) => {
 });
 
 /**
+ * @api [get] /spots/:id
  * get specific spot based off index parameter
  */
 spotRoutes.get("/:id", (req, res) => {

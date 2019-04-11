@@ -6,7 +6,7 @@
         "password": "testing",
         "posts": [
         ],
-        "profile_picture": "../public/images/avatar1.png"
+        "profile_picture": "avatar1.png"
     },
     {
         "first_name": "Abe",
@@ -28,7 +28,7 @@
                 ] 
              } 
         ],
-        "profile_picture": "../../client/public/images/avatar3.png"
+        "profile_picture": "avatar3.png"
     },
     {
         "first_name": "Sponge",
@@ -46,7 +46,7 @@
                 ]
             }
         ],
-        "profile_picture": "../../client/public/images/avatar2.png"
+        "profile_picture": "avatar2.png"
     },
     {
         "first_name": "Bob",

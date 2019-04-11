@@ -41,8 +41,8 @@ class Login extends Component {
             && this.state.password === user.password
         })    
 
-        return user ? this.setState({first_name: user.first_name}, () => {
-           this.props.login(user.first_name, user.last_name, user.username)
+        return user ? this.setState({first_name: user.first_name, profile_picture: user.profile_picture}, () => {
+           this.props.login(user.first_name, user.last_name, user.username, user.profile_picture)
            this.props.history.push('/')
         }) : console.log("Username or password is incorrect")
     }

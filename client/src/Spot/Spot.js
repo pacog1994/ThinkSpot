@@ -14,7 +14,6 @@ import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
 import Posts from './Posts'
 import PostForm from './PostForm'
 import Options from './Options'
-import { Quill } from '../Quill'
 
 class Spot extends Component {
     
