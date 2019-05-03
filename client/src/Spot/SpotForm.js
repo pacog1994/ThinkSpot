@@ -37,7 +37,7 @@ class SpotForm extends Component {
                  }
              }
              
-            this.props.addSpot(uid,
+            this.props.addSpot(uid.toString(),
                             user.username, 
                             this.newTitle.value,
                             this.newDesc.value)

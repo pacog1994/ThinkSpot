@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { deletePost, editPost } from '../_actions'
 import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
 import Options from './Options'
@@ -33,7 +34,7 @@ class Post extends Component {
     //remove post
     remove = (e) => {
         e.preventDefault()
-        this.props.deletePost(this.props.spotId, this.props.id)
+        this.props.deletePost(this.props.spotId, this.props.post.id)
     }
 
     //save edited post
@@ -83,8 +84,8 @@ class Post extends Component {
                     ? post.comments.map((comment, i) => {
                             return (
                                 <Card className={classes.posts} key={i}>
-                                    <p>{comment.comment}</p>
-                                    <p>comment by: <strong>{comment.author}</strong></p>
+                                    <Typography paragraph>{comment.comment}</Typography>
+                                    <Typography>comment by: <strong>{comment.author}</strong></Typography>
                                 </Card>
                             )
                         }) 
@@ -119,6 +120,13 @@ Post.propTypes = {
 }
 
 const styles = (theme) => ({ 
+    p: {
+        display: "block",
+        marginBlockStart: "0",
+        marginBlockEnd: "0",
+        marginInlineStart: '0',
+        marginInlineEnd: '0'
+    },
     posts: {
         margin: theme.spacing.unit * 2,
         padding: theme.spacing.unit * 2,

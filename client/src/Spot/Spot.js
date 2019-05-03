@@ -11,6 +11,7 @@ import {editSpot, removeSpot } from '../_actions'
 import { withStyles } from '@material-ui/core/styles'
 import FaFloppy0 from 'react-icons/lib/fa/floppy-o'
 
+import { timeAgo } from '../_utility/timeAgoFormatter'
 import Posts from './Posts'
 import PostForm from './PostForm'
 import Options from './Options'
@@ -23,9 +24,13 @@ class Spot extends Component {
             editing: false,
             id: null,
             author: null,
-            title: null,
+            date: null,
             description: null,
-            posts: []
+            likes: 0,
+            posts: [],
+            tags: [],
+            title: null,
+            views: 0
         }  
 
         this.save = this.save.bind(this)
@@ -40,29 +45,21 @@ class Spot extends Component {
      */
 
     componentDidMount() {
-        if(this.props.match.params.id == null) {
-            //get from parent
-            this.setState({
-                id: this.props.id,
-                author: this.props.author,
-                title: this.props.title,
-                description: this.props.description,
-                posts: this.props.posts
-            })
-        } else {
-            //get from store
-            const spot = this.props.spots.find(spot => {
-                return this.props.match.params.id === spot.id.toString()
-            })
+        const spot = this.props.spots.find(spot => {
+            return this.props.match.params.id === spot.id.toString()
+        })
 
-            this.setState({ 
-                id: spot.id,
-                author: spot.author,
-                title: spot.title,
-                description: spot.description,
-                posts: spot.posts
-            })
-        }
+        this.setState({ 
+            id: spot.id,
+            author: spot.author,
+            date: spot.date,
+            description: spot.description,
+            likes: spot.likes,
+            posts: spot.posts,
+            tags: spot.tags,
+            title: spot.title,
+            views: spot.views
+        })
     }
     
     componentWillReceiveProps(newProps) {
@@ -73,8 +70,9 @@ class Spot extends Component {
             this.setState({
                 id: spot.id,
                 author: spot.author,
-                title: spot.title,
+                date: spot.date,
                 description: spot.description,
+                title: spot.title,
                 posts: spot.posts
             })
     }
@@ -100,9 +98,13 @@ class Spot extends Component {
         let spot = { 
             id: this.state.id,
             author: this.state.author,
-            title: this.newTitle.value,
+            date: new Date().getTime(),
             description: this.newDesc.value,
-            posts: this.state.posts
+            likes: this.state.likes,
+            posts: this.state.posts,
+            tags: this.state.tags,
+            title: this.newTitle.value,
+            views: 0
         }
         this.props.editSpot(spot)
         this.setState({
@@ -141,6 +143,11 @@ class Spot extends Component {
     }
 
     renderQuestion() {
+        //get from store
+        const spot = this.props.spots.find(spot => {
+            return this.props.match.params.id === spot.id.toString()
+        })
+
         const classes = this.props.classes
         return (
             <div>
@@ -157,6 +164,18 @@ class Spot extends Component {
                 <div className={classes.footer}>
                     <p>
                         <span>asked by: <strong>{this.state.author}</strong></span>
+                        <br/>
+                        <span>Posted: {timeAgo(this.state.date)}</span>
+                        <br/>
+                        <span>Viewed: {this.state.views} times</span>
+                        <br/>
+                        <span>Likes: {this.state.likes} likes</span>
+                        <br/>
+                        <ul>Tags:
+                            { this.state.tags.map(tag => {
+                                return <li> {tag} </li>
+                            })}
+                        </ul>
                     </p>
                 </div>
             </div>

@@ -3,5 +3,13 @@
 exports[`renders Footer 1`] = `
 <div
   className="Footer-root-1"
-/>
+>
+  <a
+    className="Footer-link-2"
+    href="https://docs.google.com/document/d/1Hurhlo6DY5P8jRT6IgXGiQwE6zbqF8OPE3QgY1I7hMs/edit?usp=sharing"
+    target="_blank"
+  >
+    ThinkSpot Dev Notes
+  </a>
+</div>
 `;

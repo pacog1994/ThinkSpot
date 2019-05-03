@@ -12,7 +12,7 @@ class Posts extends Component {
                {
                    this.props.posts.map((post, i) => {
                         return (
-                            <Post spotId={this.props.spotId} post={post} id={i} key={i}/>
+                            <Post spotId={this.props.spotId} post={post} key={i}/>
                         )
                    })
                }
@@ -32,3 +32,4 @@ const styles = theme => ({
 })
 
 export default withStyles(styles)(Posts)
+

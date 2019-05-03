@@ -19,6 +19,9 @@ class PostForm extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            formValue: ""
+        }
         this.add = this.add.bind(this)
     }
 
@@ -34,11 +37,14 @@ class PostForm extends Component {
                break;
             }
         }
-        var cleanPost = sanitize(this.delta)
-        this.props.addPost(this.props.spotId, uid, this.props.user.username, cleanPost)
+        //var cleanPost = sanitize(this.delta)
+        this.props.addPost(this.props.spotId, uid, this.props.user.username, this.delta)
+
+        //reset form value
+        this.setState=({formValue: ""})
     }
 
-    onChange = (delta) => {
+    onChange = delta => {
         this.delta = delta
     }
 
@@ -51,10 +57,13 @@ class PostForm extends Component {
                 <br/>
                 <ReactQuill theme="snow" 
                             id="post"
+                            formats={PostForm.formats}
+                            modules={PostForm.modules}
                             onChange={this.onChange}
                             ref={input => this.post = input}
-                            modules={PostForm.modules}
-                            formats={PostForm.formats}
+                            placeholder="Type your post here..."
+                            value={this.state.formValue}
+                            
                  />
                 <br></br>
                 <button><FaFloppy0/></button>
@@ -70,17 +79,18 @@ PostForm.propTypes = {
 
 PostForm.modules = {
     toolbar: [
-        [{ 'font': [] }],
-        [{size: []}],
+        [{ 'header': [1, 2, 3]}],
+        [{'size': ['small', false, 'large', 'huge' ]}],
+        [{'color': []}, {'background': []}],
         ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [{'list': 'ordered'}, {'list': 'bullet'}, 
-         {'indent': '-1'}, {'indent': '+1'}]
-      ]
+        [{'list': 'ordered'}, {'list': 'bullet'}], 
+        [{'indent': '-1'}, {'indent': '+1'}],
+        ['clean']
+    ]
 }
 
 PostForm.formats = [
-    'font', 'size',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'header', 'size', 'color', 'background', 'bold', 'italic', 'underline', 'strike', 'blockquote',
     'list', 'bullet', 'indent'
   ]
   

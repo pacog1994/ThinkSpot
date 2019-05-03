@@ -2,17 +2,17 @@
     {
         "first_name": "Paco",
         "last_name" : "Gallegos",
-        "username": "paco123",
-        "password": "testing",
+        "username": "user1",
+        "password": "pass1",
         "posts": [
         ],
         "profile_picture": "avatar1.png"
     },
     {
-        "first_name": "Abe",
-        "last_name": "Lincoln",
-        "username": "alin123",
-        "password": "testing1",
+        "first_name": "Bob",
+        "last_name": "Lee",
+        "username": "user2",
+        "password": "pass2",
         "posts": [
             {
                 "sid": 0,
@@ -33,15 +33,15 @@
     {
         "first_name": "Sponge",
         "last_name": "Bob",
-        "username": "sponge1",
-        "password": "pineapple",
+        "username": "user3",
+        "password": "pass3",
         "posts": [
             {
                 "sid": 0,
                 "contributions": [
                     {
                         "cid": 1,
-                        "contribution": "Abe with the second contribution"
+                        "contribution": "Bob with the second contribution"
                     }
                 ]
             }
@@ -49,17 +49,17 @@
         "profile_picture": "avatar2.png"
     },
     {
-        "first_name": "Bob",
-        "last_name": "Proctor",
-        "username": "bp",
-        "password": "123",
+        "first_name": "Tony",
+        "last_name": "Danza",
+        "username": "user4",
+        "password": "pass4",
         "posts": [
             {
                 "sid": 0,
                 "contributions": [
                     {
                         "cid": 3,
-                        "contribution": "Bp with the fourth contribution"
+                        "contribution": "Tony with the fourth contribution"
                     }
                 ]
             }

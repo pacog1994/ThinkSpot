@@ -5,7 +5,7 @@ import { dbConstants } from '../_constants'
 
 //Get all users
 export const getUsers = () => dispatch => {
-    fetch('http://localhost:3100/users')
+    fetch('http://localhost:3100/api/users')
     .then(res => res.json())
     .then(users => dispatch({
         type: dbConstants.GET_ALL_USERS,
@@ -15,7 +15,7 @@ export const getUsers = () => dispatch => {
 
 //Get all spots
 export const getSpots = () => dispatch => {
-    fetch('http://localhost:3100/spots')
+    fetch('http://localhost:3100/api/spots')
     .then(res => res.json())
     .then(spots => dispatch({
         type: dbConstants.GET_ALL_SPOTS,
@@ -28,7 +28,7 @@ export const getSpots = () => dispatch => {
   * @param {string} id uniqueId of the spot 
   */
  export const getSpot = id => dispatch => {
-    fetch('http://localhost:3100/spots/'+id)
+    fetch('http://localhost:3100/api/spots/'+id)
     .then(res => res.json())
     .then(spot => dispatch({
         type: dbConstants.READ_SPOT,
@@ -40,7 +40,7 @@ export const getSpots = () => dispatch => {
   * @param {string} username logged in user 
   */
  export const getSpotsByUser = username => dispatch => {
-    fetch("http://localhost:3100/spots?author="+username)
+    fetch("http://localhost:3100/api/spots?author="+username)
     .then(res => res.json())
     .then(spots => dispatch({
         type: dbConstants.GET_SPOTS_BY_USER,
@@ -56,17 +56,35 @@ export const getSpots = () => dispatch => {
  * @param {string} description title of the description
  */
 export function addSpot(uid, author, title, description) {
-    
+    const obj = JSON.stringify({
+        "spotId": {
+            "N": uid
+        },
+        "author": {
+            "S": author
+        }
+    })
+
+    console.log(obj)
     //Validation logic
+    fetch('http://localhost:3100/api/spots', {
+       method: "post",
+       headers: { "Content-Type": "application/json" },
+       body: obj 
+    }).catch(err => { console.log(err)})
 
     return {
         type: dbConstants.CREATE_SPOT,
         payload: {
             "id": uid,
             "author": author,
-            "title": title,
+            "date": new Date().getTime(),
             "description": description,
-            "posts": []
+            "likes": 0,
+            "posts": [],
+            "tags": [],
+            "title": title,
+            "views": 0
         }
     }
 }

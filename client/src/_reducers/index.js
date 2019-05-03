@@ -1,18 +1,19 @@
 import { combineReducers } from 'redux'
-import { errors } from './alertReducers'
-import { user } from './userReducers'
 import { db } from './dbReducers'
+import { sort } from './sortReducers'
+import { user } from './userReducers'
+
 
 /**
  * Store architecture
  * db - temp database
  * user - current user logged in
- * errors - current error being displayed
+ * sort - the value used to sort listed data
  */
 const rootReducer = combineReducers({
     db: db,
-    user: user,
-    errors: errors
+    sort: sort,
+    user: user
 })
 
 export default rootReducer

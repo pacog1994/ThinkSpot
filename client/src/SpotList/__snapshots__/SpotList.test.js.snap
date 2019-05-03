@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders SpotList for Home component 1`] = `
+exports[`snapshot: SpotList for Home component 1`] = `
 <div>
   <a
     className="SpotList-links-2"
@@ -89,7 +89,7 @@ exports[`renders SpotList for Home component 1`] = `
 </div>
 `;
 
-exports[`renders SpotList for MySpot Component 1`] = `
+exports[`snapshot: SpotList for MySpot Component 1`] = `
 <div>
   <a
     className="SpotList-links-2"

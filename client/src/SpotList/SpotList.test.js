@@ -1,7 +1,9 @@
 import React from 'react'
+import renderer from 'react-test-renderer'
 import {HashRouter as Router} from 'react-router-dom'
 import SpotList from './SpotList'
-import renderer from 'react-test-renderer'
+
+
 
 //Spot List for all spots
 const mockGeneralSpots = [
@@ -104,18 +106,30 @@ const mockUsersSpots = [
 ]
 
 
-it('renders SpotList for Home component', () => {
-    const tree = renderer
+it('snapshot: SpotList for Home component', () => {
+    const snapshot = renderer
         .create(
         <Router>
             <SpotList spots={mockGeneralSpots}/>
         </Router>
-        )
-        .toJSON()
-    expect(tree).toMatchSnapshot()
+        ).toJSON()
+    expect(snapshot).toMatchSnapshot()
 })
 
-it('renders SpotList for MySpot Component', () => {
+it('functional: SpotList for Home component renders 4 spotLinks for 4 spots', () => {
+    const rootInstance = renderer
+    .create(
+    <Router>
+        <SpotList spots={mockGeneralSpots}/>
+    </Router>
+    ).root
+
+    const spotLinks = rootInstance.findAllByType('a')
+    expect(spotLinks.length).toBe(4)
+
+})
+
+it('snapshot: SpotList for MySpot Component', () => {
     const tree2 = renderer
         .create(
         <Router>
@@ -124,4 +138,21 @@ it('renders SpotList for MySpot Component', () => {
         )
         .toJSON()
     expect(tree2).toMatchSnapshot()
+})
+
+it('functioanl: SpotList for Home component renders 2 author headers for the 2 spots and that the authors are the same', () => {
+    const rootInstance = renderer
+    .create(
+    <Router>
+        <SpotList spots={mockUsersSpots}/>
+    </Router>
+    ).root
+
+    const authorTags = rootInstance.findAllByType('h3')
+    expect(authorTags.length).toBe(2)
+
+    authorTags.forEach((authorTag) => { 
+        expect(authorTag.props.children).toBe("paco123")
+    })
+
 })
